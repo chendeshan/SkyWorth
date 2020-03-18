@@ -17,5 +17,7 @@
     <color name="base_dialog_negative_text_color">#ffffff</color>
     <color name="base_dialog_separate_color">#555a71</color>
     <color name="base_dialog_input_text_color">#ffffff</color>
+    <color name="color_323B48">#323B48</color>
+    <color name="color_75797E">#75797E</color>
 
 </resources>

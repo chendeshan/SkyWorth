@@ -28,13 +28,13 @@ public class UpgradeActivity extends Activity {
         BaseAlertDialog dialog = new BaseAlertDialog.Builder(this)
                 .setTitle("升级失败了")
                 .setMessage("是否重新升级")
-                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                .setNegativeButton("再想想", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 })
-                .setPositiveButton("再想想", new DialogInterface.OnClickListener() {
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
