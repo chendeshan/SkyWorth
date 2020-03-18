@@ -21,7 +21,7 @@ public class UpgradeActivity extends Activity {
     }
 
     public void manualUpgradeClick(View view) {
-
+        showManualDialog();
     }
 
     public void showFailDialog() {
@@ -35,6 +35,28 @@ public class UpgradeActivity extends Activity {
                     }
                 })
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setCancelEnable(false)
+                .build();
+
+        dialog.show();
+    }
+
+    public void showManualDialog() {
+        BaseAlertDialog dialog = new BaseAlertDialog.Builder(this)
+                .setTitle("立即手动U盘安装升级")
+                .setMessage("请确认已获取升级包并插入U盘")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("再想想", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
