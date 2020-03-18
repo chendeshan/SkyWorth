@@ -29,7 +29,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/color_007FF0"
+            android:background="@drawable/item_background"
+            android:focusable="true"
             android:onClick="upgradeClick">
 
             <TextView
@@ -55,7 +56,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/color_34424A"
+            android:background="@drawable/item_background"
             android:onClick="adjustCameraClick">
 
             <TextView
@@ -81,7 +82,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/color_34424A">
+            android:background="@drawable/item_background">
 
             <TextView
                 android:layout_width="wrap_content"
