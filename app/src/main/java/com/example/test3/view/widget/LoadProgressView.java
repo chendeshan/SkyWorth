@@ -27,6 +27,7 @@ public class LoadProgressView extends ImageView {
 
     private void init(Context context) {
         mDrawable = getDrawable();
+
         if (mDrawable == null) {
             mDrawable = getResources().getDrawable(R.mipmap.tv_dialog_loading);
         }
@@ -34,9 +35,10 @@ public class LoadProgressView extends ImageView {
         if (mDrawable == null) {
             return;
         }
+
         mDrawable.setBounds(0, 0, (int)(mDrawable.getIntrinsicWidth() * 0.6), (int)(mDrawable.getIntrinsicHeight() * 0.6));
 
-        this.setImageDrawable(mDrawable);
+        setImageDrawable(mDrawable);
 
         // 加载动画
         Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(context, R.anim.loading_animation);
