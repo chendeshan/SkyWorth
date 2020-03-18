@@ -10,4 +10,12 @@
     <color name="color_CDD2D8">#CDD2D8</color>
     <color name="color_34424A">#34424A</color>
     <color name="color_999999">#999999</color>
+    <color name="base_dialog_bg_color">#1e2641</color>
+    <color name="base_dialog_title_text_color">#ffffff</color>
+    <color name="base_dialog_message_text_color">#ffffff</color>
+    <color name="base_dialog_positive_text_color">#ffffff</color>
+    <color name="base_dialog_negative_text_color">#ffffff</color>
+    <color name="base_dialog_separate_color">#555a71</color>
+    <color name="base_dialog_input_text_color">#ffffff</color>
+
 </resources>
