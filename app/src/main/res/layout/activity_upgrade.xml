@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@mipmap/tv_background"
     android:orientation="vertical"
-    tools:context=".activity.UpgradeActivity">
+    tools:context=".view.activity.UpgradeActivity">
 
     <TextView
         android:layout_width="wrap_content"

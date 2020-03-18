@@ -11,19 +11,19 @@
         android:testOnly="false"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.AdjustCameraActivity"
+            android:name=".view.activity.AdjustCameraActivity"
             android:screenOrientation="landscape"
             android:theme="@style/SkyWorthTheme" />
         <activity
-            android:name=".activity.UpgradeActivity"
+            android:name=".view.activity.UpgradeActivity"
             android:screenOrientation="landscape"
             android:theme="@style/SkyWorthTheme" />
         <activity
-            android:name=".activity.SettingActivity"
+            android:name=".view.activity.SettingActivity"
             android:screenOrientation="landscape"
             android:theme="@style/SkyWorthTheme" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".view.activity.MainActivity"
             android:screenOrientation="landscape"
             android:theme="@style/SkyWorthTheme">
             <intent-filter>

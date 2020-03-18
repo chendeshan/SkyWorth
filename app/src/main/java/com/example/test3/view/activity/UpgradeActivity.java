@@ -1,4 +1,4 @@
-package com.example.test3.activity;
+package com.example.test3.view.activity;
 
 import android.app.Activity;
 import android.os.Bundle;

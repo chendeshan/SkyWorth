@@ -1,6 +1,4 @@
-package com.example.test3.activity;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.test3.view.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
