@@ -42,15 +42,13 @@
                 android:textColor="@color/color_FFFFFF"
                 android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:layout_width="4dp"
+                android:layout_height="9dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="30dp"
-                android:text=">"
-                android:textColor="@color/color_FFFFFF"
-                android:textSize="18sp" />
+                android:background="@mipmap/arrow_right" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -68,15 +66,14 @@
                 android:textColor="@color/color_CDD2D8"
                 android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:layout_width="4dp"
+                android:layout_height="9dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="30dp"
-                android:text=">"
-                android:textColor="@color/color_FFFFFF"
-                android:textSize="18sp" />
+                android:background="@mipmap/arrow_right" />
+
         </RelativeLayout>
 
         <RelativeLayout
