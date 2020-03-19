@@ -302,10 +302,11 @@ public class OkHttpUtil {
     }
 
     private Param[] validateParam(Param[] params) {
-        if (params == null)
+        if (params == null) {
             return new Param[0];
-        else
+        } else {
             return params;
+        }
     }
 
     private String guessMimeType(String path) {
