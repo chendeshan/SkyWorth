@@ -1,10 +1,15 @@
 package com.example.test3.base.web.server;
 
 import android.text.TextUtils;
-import android.view.TextureView;
+
+import com.example.test3.base.web.OkHttp3Util;
+import com.example.test3.base.web.bean.BaseResponse;
+import com.example.test3.base.web.bean.UpgradeInfoBean;
+import com.example.test3.base.web.mapper.Mapper;
 
 import java.util.HashMap;
-import java.util.PropertyResourceBundle;
+
+import okhttp3.Request;
 
 class ServerApi implements IServerApi {
 
@@ -31,15 +36,31 @@ class ServerApi implements IServerApi {
         if (params == null || params.isEmpty()) {
             getGradeInfo(url, callback);
         } else {
-
+            String tempUrl = OkHttp3Util.spliceParam(url, params);
+            getGradeInfo(tempUrl, callback);
         }
     }
 
     @Override
-    public void getGradeInfo(String url, IResultCallback callback) {
+    public void getGradeInfo(String url, final IResultCallback callback) {
         if (callback == null || TextUtils.isEmpty(url)) {
             return;
         }
+
+        OkHttp3Util.getDataAsync(url, new OkHttp3Util.ResultCallback() {
+            @Override
+            public void onError(Request request, Exception e) {
+                callback.onFail(e);
+            }
+
+            @Override
+            public void onResponse(Object response) {
+                String responseString = (String) response;
+
+                BaseResponse<UpgradeInfoBean> upgradeInfoBeanBaseResponse = Mapper.upgradeInfoJsonToBean(responseString);
+                callback.onSuccess(upgradeInfoBeanBaseResponse);
+            }
+        });
 
     }
 }
