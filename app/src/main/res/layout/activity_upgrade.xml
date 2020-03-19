@@ -68,6 +68,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/activity_upgrade_loading_net_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -133,6 +134,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/activity_upgrade_loading_manual_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

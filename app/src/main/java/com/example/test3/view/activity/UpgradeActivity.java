@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.example.test3.R;
 import com.example.test3.view.widget.BaseAlertDialog;
@@ -13,12 +14,27 @@ public class UpgradeActivity extends Activity {
 
     private ProgressDialog mProgressDialog;
 
+    private LinearLayout mNetUpgradeLayout;
+    private LinearLayout mNetUpgradingLayout;
+    private LinearLayout mManualUpgradeLayout;
+    private LinearLayout mManualUpgradingLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrade);
+        initView();
     }
 
+    private void initView() {
+        mNetUpgradeLayout = (LinearLayout) findViewById(R.id.activity_upgrade_net_layout);
+        mNetUpgradingLayout = (LinearLayout) findViewById(R.id.activity_upgrade_loading_net_layout);
+
+        mManualUpgradeLayout = (LinearLayout) findViewById(R.id.activity_upgrade_manual_layout);
+        mManualUpgradingLayout = (LinearLayout) findViewById(R.id.activity_upgrade_loading_manual_layout);
+    }
+
+    /*click*/
     public void netUpgradeClick(View view) {
         showFailDialog();
     }
@@ -27,6 +43,28 @@ public class UpgradeActivity extends Activity {
         showManualDialog();
     }
 
+    /*view*/
+    private void showNetUpgradeLayout() {
+        mNetUpgradeLayout.setVisibility(View.VISIBLE);
+        mNetUpgradingLayout.setVisibility(View.GONE);
+    }
+
+    private void showNetUpgradingLayout() {
+        mNetUpgradingLayout.setVisibility(View.VISIBLE);
+        mNetUpgradeLayout.setVisibility(View.GONE);
+    }
+
+    private void showManualUpgradeLayout() {
+        mManualUpgradeLayout.setVisibility(View.VISIBLE);
+        mManualUpgradingLayout.setVisibility(View.GONE);
+    }
+
+    private void showManualUpgradingLayout() {
+        mManualUpgradingLayout.setVisibility(View.VISIBLE);
+        mManualUpgradeLayout.setVisibility(View.GONE);
+    }
+
+    /*dialog*/
     public void showFailDialog() {
         BaseAlertDialog dialog = new BaseAlertDialog.Builder(this)
                 .setTitle("升级失败了")
