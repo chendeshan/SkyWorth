@@ -28,6 +28,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/activity_upgrade_net_button"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:background="@drawable/item_background"
@@ -93,6 +94,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/activity_upgrade_manual_button"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:background="@drawable/item_background"
@@ -114,8 +116,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="30dp"
-                android:orientation="horizontal"
-                android:visibility="invisible">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -139,7 +140,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="30dp">
+                android:layout_marginRight="30dp"
+                android:visibility="invisible">
 
                 <com.example.test3.view.widget.LoadProgressView
                     android:layout_width="12dp"

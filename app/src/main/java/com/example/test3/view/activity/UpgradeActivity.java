@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.test3.R;
 import com.example.test3.view.widget.BaseAlertDialog;
@@ -21,6 +22,8 @@ public class UpgradeActivity extends Activity {
     private LinearLayout mNetUpgradingLayout;
     private LinearLayout mManualUpgradeLayout;
     private LinearLayout mManualUpgradingLayout;
+    private RelativeLayout mNetButton;
+    private RelativeLayout mManualButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +35,11 @@ public class UpgradeActivity extends Activity {
     private void initView() {
         mNetUpgradeLayout = (LinearLayout) findViewById(R.id.activity_upgrade_net_layout);
         mNetUpgradingLayout = (LinearLayout) findViewById(R.id.activity_upgrade_loading_net_layout);
+        mNetButton = (RelativeLayout) findViewById(R.id.activity_upgrade_net_button);
 
         mManualUpgradeLayout = (LinearLayout) findViewById(R.id.activity_upgrade_manual_layout);
         mManualUpgradingLayout = (LinearLayout) findViewById(R.id.activity_upgrade_loading_manual_layout);
+        mManualButton = (RelativeLayout) findViewById(R.id.activity_upgrade_manual_button);
     }
 
     /*click*/
@@ -42,20 +47,18 @@ public class UpgradeActivity extends Activity {
         showProgressDialog();
         showNetUpgradingLayout();
 
-        netFakeDelay(new TimerTask() {
+        fakeDelay(new TimerTask() {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        showNetUpgradeLayout();
-                        dismissProgressDialog();
+                        showNetFailDialog();
                     }
                 });
             }
         });
     }
-
 
 
     public void manualUpgradeClick(View view) {
@@ -66,37 +69,45 @@ public class UpgradeActivity extends Activity {
     private void showNetUpgradeLayout() {
         mNetUpgradeLayout.setVisibility(View.VISIBLE);
         mNetUpgradingLayout.setVisibility(View.GONE);
+        mNetButton.setEnabled(true);
     }
 
     private void showNetUpgradingLayout() {
         mNetUpgradingLayout.setVisibility(View.VISIBLE);
         mNetUpgradeLayout.setVisibility(View.GONE);
+        mNetButton.setEnabled(false);
     }
 
     private void showManualUpgradeLayout() {
         mManualUpgradeLayout.setVisibility(View.VISIBLE);
         mManualUpgradingLayout.setVisibility(View.GONE);
+        mManualButton.setEnabled(true);
     }
 
     private void showManualUpgradingLayout() {
         mManualUpgradingLayout.setVisibility(View.VISIBLE);
         mManualUpgradeLayout.setVisibility(View.GONE);
+        mManualButton.setEnabled(false);
     }
 
     /*dialog*/
-    public void showFailDialog() {
+    private void showNetFailDialog() {
         BaseAlertDialog dialog = new BaseAlertDialog.Builder(this)
                 .setTitle("升级失败了")
                 .setMessage("是否重新升级")
                 .setNegativeButton("再想想", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        showNetUpgradeLayout();
+                        dismissProgressDialog();
                         dialog.dismiss();
                     }
                 })
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        showNetUpgradeLayout();
+                        dismissProgressDialog();
                         dialog.dismiss();
                     }
                 })
@@ -106,7 +117,7 @@ public class UpgradeActivity extends Activity {
         dialog.show();
     }
 
-    public void showManualDialog() {
+    private void showManualDialog() {
         BaseAlertDialog dialog = new BaseAlertDialog.Builder(this)
                 .setTitle("立即手动U盘安装升级")
                 .setMessage("请确认已获取升级包并插入U盘")
@@ -114,6 +125,20 @@ public class UpgradeActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        showManualUpgradingLayout();
+
+                        fakeDelay(new TimerTask() {
+                            @Override
+                            public void run() {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        showManualUpgradeLayout();
+                                    }
+                                });
+                            }
+                        });
+
                     }
                 })
                 .setNegativeButton("再想想", new DialogInterface.OnClickListener() {
@@ -134,16 +159,14 @@ public class UpgradeActivity extends Activity {
         mProgressDialog.show();
     }
 
-    public void dismissProgressDialog() {
+    private void dismissProgressDialog() {
         mProgressDialog.dismiss();
     }
 
     /*fake*/
-
-    private void netFakeDelay(TimerTask timerTask) {
+    private void fakeDelay(TimerTask timerTask) {
         Timer timer = new Timer();
         timer.schedule(timerTask, 5000);
     }
-
 
 }
