@@ -38,10 +38,9 @@ public class ProgressDialog extends Dialog {
 
         spaceshipImage = (ImageView) inflate.findViewById(R.id.dialog_image);
 
-        mMessageView = (TextView) inflate.findViewById(R.id.dialog_message);// 提示文字
+        mMessageView = (TextView) inflate.findViewById(R.id.dialog_message);
         mMessageView.setText(message);
 
-        // 取消button
         mButton = (TextView) inflate.findViewById(R.id.dialog_cancle);
 
         if (listener == null) {
@@ -72,9 +71,7 @@ public class ProgressDialog extends Dialog {
 
     @Override
     public void show() {
-        // 加载动画
         Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(mContext, R.anim.loading_animation);
-        // 使用ImageView显示动画
         spaceshipImage.startAnimation(hyperspaceJumpAnimation);
 
         super.show();

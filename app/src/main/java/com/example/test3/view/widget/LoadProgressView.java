@@ -40,9 +40,7 @@ public class LoadProgressView extends ImageView {
 
         setImageDrawable(mDrawable);
 
-        // 加载动画
         Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(context, R.anim.loading_animation);
-        // 使用ImageView显示动画
         startAnimation(hyperspaceJumpAnimation);
     }
 }
