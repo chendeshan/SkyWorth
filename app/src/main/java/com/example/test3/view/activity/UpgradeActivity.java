@@ -8,13 +8,20 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.test3.R;
+import com.example.test3.base.web.bean.BaseResponse;
+import com.example.test3.base.web.server.IResultCallback;
+import com.example.test3.base.web.server.ServerApiFactory;
+import com.example.test3.urils.Constant;
 import com.example.test3.view.widget.BaseAlertDialog;
 import com.example.test3.view.widget.ProgressDialog;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class UpgradeActivity extends Activity {
+    private static final String TAG = "UpgradeActivity";
 
     private ProgressDialog mProgressDialog;
 
@@ -167,6 +174,39 @@ public class UpgradeActivity extends Activity {
     private void fakeDelay(TimerTask timerTask) {
         Timer timer = new Timer();
         timer.schedule(timerTask, 5000);
+    }
+
+    private void downloadUpgradeInfo() {
+        ServerApiFactory.getApi().getGradeInfo(Constant.UPGRADE_URL, createParam(), new IResultCallback() {
+            @Override
+            public void onFail(Exception e) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseResponse response) {
+
+            }
+        });
+    }
+
+    private Map<String,String> createParam() {
+        Map<String, String> params = new HashMap<>();
+
+        params.put("cameraModel", "SWC1");
+        params.put("cameraHwVersion", "cm400pro");
+        params.put("tvModel", "G31");
+        params.put("tvChip", "6H70");
+        params.put("cameraFwLVerson", "001");
+        params.put("cameraFwSVersion", "01");
+        params.put("motorModel", "mt1");
+
+        params.put("mtVersion", "001");
+        params.put("screenVersion", "001");
+        params.put("ts", "1584338851");
+        params.put("token", "b888c2205d6cce32af3e39dd158b4f41");
+
+        return params;
     }
 
 }

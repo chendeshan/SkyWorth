@@ -7,7 +7,7 @@ import com.example.test3.base.web.bean.BaseResponse;
 import com.example.test3.base.web.bean.UpgradeInfoBean;
 import com.example.test3.base.web.mapper.Mapper;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Request;
 
@@ -28,7 +28,7 @@ class ServerApi implements IServerApi {
     }
 
     @Override
-    public void getGradeInfo(String url, HashMap<String, String> params, IResultCallback callback) {
+    public void getGradeInfo(String url, Map<String, String> params, IResultCallback callback) {
         if (callback == null || TextUtils.isEmpty(url)) {
             return;
         }
