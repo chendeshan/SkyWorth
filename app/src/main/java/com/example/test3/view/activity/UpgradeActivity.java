@@ -10,6 +10,9 @@ import com.example.test3.R;
 import com.example.test3.view.widget.BaseAlertDialog;
 import com.example.test3.view.widget.ProgressDialog;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class UpgradeActivity extends Activity {
 
     private ProgressDialog mProgressDialog;
@@ -36,8 +39,24 @@ public class UpgradeActivity extends Activity {
 
     /*click*/
     public void netUpgradeClick(View view) {
-        showFailDialog();
+        showProgressDialog();
+        showNetUpgradingLayout();
+
+        netFakeDelay(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showNetUpgradeLayout();
+                        dismissProgressDialog();
+                    }
+                });
+            }
+        });
     }
+
+
 
     public void manualUpgradeClick(View view) {
         showManualDialog();
@@ -118,4 +137,13 @@ public class UpgradeActivity extends Activity {
     public void dismissProgressDialog() {
         mProgressDialog.dismiss();
     }
+
+    /*fake*/
+
+    private void netFakeDelay(TimerTask timerTask) {
+        Timer timer = new Timer();
+        timer.schedule(timerTask, 5000);
+    }
+
+
 }
