@@ -25,8 +25,6 @@ public class BaseAlertDialog extends Dialog {
 
     /**
      * Set the Dialog title from String
-     *
-     * @param title text
      */
     public void setTitle(CharSequence title) {
         if (title != null && mContentView != null) {
@@ -36,8 +34,6 @@ public class BaseAlertDialog extends Dialog {
 
     /**
      * Set the Dialog message from String
-     *
-     * @param message text
      */
     public void setMessage(CharSequence message) {
         if (message != null && mContentView != null) {
@@ -50,9 +46,6 @@ public class BaseAlertDialog extends Dialog {
 
     /**
      * Get the Dialog button
-     *
-     * @param whichButton enum
-     * @return TextView
      */
     public TextView getButton(int whichButton) {
         if (mContentView == null) {
@@ -69,8 +62,6 @@ public class BaseAlertDialog extends Dialog {
 
     /**
      * Set the Dialog positive button status
-     *
-     * @param enable boolean
      */
     public void setPositiveButtonEnable(boolean enable) {
         if (mContentView == null) {
@@ -93,8 +84,6 @@ public class BaseAlertDialog extends Dialog {
 
     /**
      * Set the Dialog negative button status
-     *
-     * @param enable boolean
      */
     public void setNegativeButtonEnable(boolean enable) {
         if (mContentView == null) {
@@ -136,9 +125,6 @@ public class BaseAlertDialog extends Dialog {
 
         /**
          * Set the Dialog message from String
-         *
-         * @param message text
-         * @return Builder
          */
         public Builder setMessage(String message) {
             this.message = message;
@@ -147,9 +133,6 @@ public class BaseAlertDialog extends Dialog {
 
         /**
          * Set the Dialog message from resource
-         *
-         * @param message text
-         * @return Builder
          */
         public Builder setMessage(int message) {
             this.message = (String) context.getText(message);
@@ -158,9 +141,6 @@ public class BaseAlertDialog extends Dialog {
 
         /**
          * Set the Dialog message from resource
-         *
-         * @param gravity int
-         * @return Builder
          */
         public Builder setMessageGravity(int gravity) {
             this.messageGravity = gravity;
@@ -169,9 +149,6 @@ public class BaseAlertDialog extends Dialog {
 
         /**
          * Set the Dialog title from resource
-         *
-         * @param title text
-         * @return Builder
          */
         public Builder setTitle(int title) {
             this.title = (String) context.getText(title);
@@ -180,9 +157,6 @@ public class BaseAlertDialog extends Dialog {
 
         /**
          * Set the Dialog title from String
-         *
-         * @param title text
-         * @return Builder
          */
         public Builder setTitle(String title) {
             this.title = title;
@@ -191,9 +165,6 @@ public class BaseAlertDialog extends Dialog {
 
         /**
          * Set the Dialog icon from resource
-         *
-         * @param icon resid
-         * @return Builder
          */
         public Builder setIcon(int icon) {
             this.icon = context.getResources().getDrawable(icon);
@@ -202,9 +173,6 @@ public class BaseAlertDialog extends Dialog {
 
         /**
          * Set the Dialog CancelEnable
-         *
-         * @param cancelEnable boolean
-         * @return Builder
          */
         public Builder setCancelEnable(boolean cancelEnable) {
             this.cancelEnable = cancelEnable;
@@ -215,9 +183,6 @@ public class BaseAlertDialog extends Dialog {
          * Set a custom content view for the Dialog.
          * If a message is set, the contentView is not
          * added to the Dialog...
-         *
-         * @param v view
-         * @return Builder
          */
         public Builder setContentView(View v) {
             this.contentView = v;
@@ -226,10 +191,6 @@ public class BaseAlertDialog extends Dialog {
 
         /**
          * Set the positive button resource and it's listener
-         *
-         * @param positiveButtonText text
-         * @param listener           callback
-         * @return Builder
          */
         public Builder setPositiveButton(int positiveButtonText,
                                          DialogInterface.OnClickListener listener) {
@@ -241,10 +202,6 @@ public class BaseAlertDialog extends Dialog {
 
         /**
          * Set the positive button text and it's listener
-         *
-         * @param positiveButtonText text
-         * @param listener           callback
-         * @return Builder
          */
         public Builder setPositiveButton(String positiveButtonText,
                                          DialogInterface.OnClickListener listener) {
@@ -255,10 +212,6 @@ public class BaseAlertDialog extends Dialog {
 
         /**
          * Set the negative button resource and it's listener
-         *
-         * @param negativeButtonText button
-         * @param listener           callback
-         * @return Builder
          */
         public Builder setNegativeButton(int negativeButtonText,
                                          DialogInterface.OnClickListener listener) {
@@ -270,10 +223,6 @@ public class BaseAlertDialog extends Dialog {
 
         /**
          * Set the negative button text and it's listener
-         *
-         * @param negativeButtonText button
-         * @param listener           callback
-         * @return Builder
          */
         public Builder setNegativeButton(String negativeButtonText,
                                          DialogInterface.OnClickListener listener) {
@@ -358,15 +307,12 @@ public class BaseAlertDialog extends Dialog {
                 messageText.setGravity(messageGravity);
             }
 
-            //设置alert最小
 //            float t = Settings.getFloat(Settings.PIXEL_PER_MM);
 //            layout.setMinimumHeight((int) (t * 20));
 //            layout.setMinimumWidth((int) (t * 50) + 10);
 
             dialog.setCancelable(cancelEnable);
-
             dialog.setContentView(layout);
-
             dialog.mContentView = layout;
 
             return dialog;
