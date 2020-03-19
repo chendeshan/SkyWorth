@@ -1,4 +1,4 @@
-package com.example.test3.view.base.web;
+package com.example.test3.base.web;
 
 
 import android.os.Handler;
@@ -53,7 +53,6 @@ public class OkHttpUtil {
             @Override
             public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
                 cookieStore.put(url.host(), cookies);
-
             }
 
             @Override
