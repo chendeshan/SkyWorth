@@ -7,8 +7,11 @@ import android.view.View;
 
 import com.example.test3.R;
 import com.example.test3.view.widget.BaseAlertDialog;
+import com.example.test3.view.widget.ProgressDialog;
 
 public class UpgradeActivity extends Activity {
+
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,5 +69,15 @@ public class UpgradeActivity extends Activity {
                 .build();
 
         dialog.show();
+    }
+
+    private void showProgressDialog() {
+        mProgressDialog = new ProgressDialog(this, "升级时间较长，请保持网络正常，耐心等待", null);
+
+        mProgressDialog.show();
+    }
+
+    public void dismissProgressDialog() {
+        mProgressDialog.dismiss();
     }
 }
