@@ -449,14 +449,14 @@ public class OkHttp3Util {
             StringBuffer buffer = new StringBuffer(url);
             buffer.append('?');
 
-            for (Map.Entry<String,String> entry: param.entrySet()) {
+            for (Map.Entry<String, String> entry : param.entrySet()) {
                 buffer.append(entry.getKey());
                 buffer.append('=');
                 buffer.append(entry.getValue());
                 buffer.append('&');
             }
 
-            buffer.deleteCharAt(buffer.length()-1);
+            buffer.deleteCharAt(buffer.length() - 1);
             url = buffer.toString();
         }
 
@@ -525,12 +525,6 @@ public class OkHttp3Util {
      * @param <T>
      */
     public static abstract class ResultCallback<T> {
-        //这是请求数据的返回类型，包含常见的（Bean，List等）
-        Type mType;
-
-        public ResultCallback() {
-            mType = getSuperclassTypeParameter(getClass());
-        }
 
         /**
          * 通过反射想要的返回类型
@@ -573,13 +567,7 @@ public class OkHttp3Util {
             public void onResponse(Call call, Response response) throws IOException {
                 try {
                     final String string = response.body().string();
-                    if (callback.mType == String.class) {
-                        sendSuccessResultCallback(string, callback);
-                    } else {
-                        Object o = gson.fromJson(string, callback.mType);
-                        sendSuccessResultCallback(o, callback);
-                    }
-
+                    sendSuccessResultCallback(string, callback);
 
                 } catch (IOException e) {
                     sendFailedStringCallback(response.request(), e, callback);
