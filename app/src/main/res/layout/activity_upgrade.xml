@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="44dp"
         android:layout_marginTop="28dp"
-        android:text="摄像头升级"
+        android:text="@string/activity_upgrade_camera_upgrade"
         android:textColor="@color/color_9A9FA6"
         android:textSize="24sp"
         android:textStyle="normal" />
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="30dp"
-                android:text="网络升级"
+                android:text="@string/activity_upgrade_net_upgrade"
                 android:textColor="@color/color_FFFFFF"
                 android:textSize="18sp" />
 
@@ -55,7 +55,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="立刻升级"
+                    android:text="@string/activity_upgrade_upgrade_immediatly"
                     android:textColor="@color/color_FFFFFF"
                     android:textSize="18sp" />
 
@@ -86,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="17dp"
-                    android:text="升级中"
+                    android:text="@string/activity_upgrade_doing"
                     android:textColor="@color/color_FFFFFF"
                     android:textSize="18sp" />
 
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="30dp"
-                android:text="手动升级"
+                android:text="@string/activity_upgrade_manual"
                 android:textColor="@color/color_CDD2D8"
                 android:textSize="18sp" />
 
@@ -121,7 +121,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="立刻升级"
+                    android:text="@string/activity_upgrade_upgrade_immediatly"
                     android:textColor="@color/color_FFFFFF"
                     android:textSize="18sp" />
 
@@ -152,7 +152,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="17dp"
-                    android:text="升级中"
+                    android:text="@string/activity_upgrade_doing"
                     android:textColor="@color/color_FFFFFF"
                     android:textSize="18sp" />
 

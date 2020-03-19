@@ -2,4 +2,21 @@
     <string name="app_name">摄像头设置</string>
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
+
+    <!--UpgradeActivity-->
+    <string name="activity_upgrade_camera_upgrade">摄像头升级</string>
+    <string name="activity_upgrade_net_upgrade">网络升级</string>
+    <string name="activity_upgrade_upgrade_immediatly">立刻升级</string>
+    <string name="activity_upgrade_doing">升级中</string>
+    <string name="activity_upgrade_manual">手动升级</string>
+    <string name="activity_upgrade_net_dialog_title">升级失败了</string>
+    <string name="activity_upugrade_net_dialog_message">是否重新升级</string>
+    <string name="activity_upgrade_manual_dialog_title">立即手动U盘安装升级</string>
+    <string name="activity_upgrade_dialog_manual_message">请确认已获取升级包并插入U盘</string>
+    <string name="activity_upgrade_progress_dialog_message">升级时间较长，请保持网络正常，耐心等待</string>
+
+    <!--common-->
+    <string name="text_see_see">再想想</string>
+    <string name="text_ok">确定</string>
+
 </resources>

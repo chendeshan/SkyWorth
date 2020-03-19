@@ -93,9 +93,9 @@ public class UpgradeActivity extends Activity {
     /*dialog*/
     private void showNetFailDialog() {
         BaseAlertDialog dialog = new BaseAlertDialog.Builder(this)
-                .setTitle("升级失败了")
-                .setMessage("是否重新升级")
-                .setNegativeButton("再想想", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.activity_upgrade_net_dialog_title)
+                .setMessage(R.string.activity_upugrade_net_dialog_message)
+                .setNegativeButton(R.string.text_see_see, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         showNetUpgradeLayout();
@@ -103,7 +103,7 @@ public class UpgradeActivity extends Activity {
                         dialog.dismiss();
                     }
                 })
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.text_ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         showNetUpgradeLayout();
@@ -119,9 +119,9 @@ public class UpgradeActivity extends Activity {
 
     private void showManualDialog() {
         BaseAlertDialog dialog = new BaseAlertDialog.Builder(this)
-                .setTitle("立即手动U盘安装升级")
-                .setMessage("请确认已获取升级包并插入U盘")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.activity_upgrade_manual_dialog_title)
+                .setMessage(R.string.activity_upgrade_dialog_manual_message)
+                .setPositiveButton(R.string.text_ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -141,7 +141,7 @@ public class UpgradeActivity extends Activity {
 
                     }
                 })
-                .setNegativeButton("再想想", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.text_see_see, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -154,7 +154,7 @@ public class UpgradeActivity extends Activity {
     }
 
     private void showProgressDialog() {
-        mProgressDialog = new ProgressDialog(this, "升级时间较长，请保持网络正常，耐心等待", null);
+        mProgressDialog = new ProgressDialog(this, getString(R.string.activity_upgrade_progress_dialog_message), null);
 
         mProgressDialog.show();
     }
