@@ -83,10 +83,10 @@ public class BaseAlertDialog extends Dialog {
         if (positiveButton != null) {
             boolean negativeButtonExist = (negativeButton != null && negativeButton.getVisibility() == View.VISIBLE);
 
-            int enableResId = (negativeButtonExist ? R.drawable.dialog_btn_background : R.drawable.dialog_btn_single_background);
-            int disableResId = (negativeButtonExist ? R.drawable.dialog_btn_bg_disable : R.drawable.dialog_btn_single_bg_disable);
+//            int enableResId = (negativeButtonExist ? R.drawable.dialog_btn_background : R.drawable.dialog_btn_background);
+//            int disableResId = (negativeButtonExist ? R.drawable.dialog_btn_background : R.drawable.dialog_btn_background);
 
-            positiveButton.setBackgroundResource(enable ? enableResId : disableResId);
+//            positiveButton.setBackgroundResource(enable ? enableResId : disableResId);
             positiveButton.setEnabled(enable);
         }
     }
@@ -103,7 +103,7 @@ public class BaseAlertDialog extends Dialog {
 
         TextView button = (TextView) mContentView.findViewById(R.id.base_dialog_negative_button);
         if (button != null) {
-            button.setBackgroundResource(enable ? R.drawable.dialog_btn_background : R.drawable.dialog_btn_bg_disable);
+//            button.setBackgroundResource(enable ? R.drawable.dialog_btn_background : R.drawable.dialog_btn_background);
             button.setEnabled(enable);
         }
     }
@@ -336,7 +336,7 @@ public class BaseAlertDialog extends Dialog {
                 layout.findViewById(R.id.base_dialog_negative_button).setVisibility(View.GONE);
 
                 // set single button resource
-                positiveButton.setBackgroundResource(R.drawable.dialog_btn_single_background);
+                positiveButton.setBackgroundResource(R.drawable.dialog_btn_background);
             }
 
             if (positiveButtonText != null && negativeButtonText != null) {
