@@ -2,7 +2,7 @@ package com.example.test3.base.web.bean;
 
 import java.util.List;
 
-public class UpgradeInfo {
+public class UpgradeInfoBean extends BaseBean {
 
 
     /**
