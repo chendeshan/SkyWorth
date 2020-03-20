@@ -9,8 +9,7 @@ import android.widget.RelativeLayout;
 
 import com.example.test3.R;
 import com.example.test3.base.web.bean.BaseBean;
-import com.example.test3.base.web.bean.BaseResponse;
-import com.example.test3.base.web.server.IResultCallback;
+import com.example.test3.base.web.server.IServerResultCallback;
 import com.example.test3.base.web.server.ServerApiFactory;
 import com.example.test3.urils.Constant;
 import com.example.test3.view.widget.BaseAlertDialog;
@@ -178,7 +177,7 @@ public class UpgradeActivity extends Activity {
     }
 
     private void downloadUpgradeInfo() {
-        ServerApiFactory.getApi().getGradeInfo(Constant.UPGRADE_URL, createParam(), new IResultCallback() {
+        ServerApiFactory.getApi().getGradeInfo(Constant.UPGRADE_URL, createParam(), new IServerResultCallback() {
             @Override
             public void onFail(Exception e) {
 

@@ -1,13 +1,12 @@
 package com.example.test3.base.web.server;
 
-import android.os.strictmode.IntentReceiverLeakedViolation;
 import android.text.TextUtils;
 
 import com.example.test3.base.web.OkHttp3Util;
-import com.example.test3.base.web.bean.BaseResponse;
 import com.example.test3.base.web.bean.DownloadFileBean;
 import com.example.test3.base.web.bean.UpgradeInfoBean;
 import com.example.test3.base.web.mapper.Mapper;
+import com.example.test3.base.web.server.download.ProgressCallback;
 
 import java.util.Map;
 
@@ -30,7 +29,7 @@ class ServerApi implements IServerApi {
     }
 
     @Override
-    public void getGradeInfo(String url, Map<String, String> params, IResultCallback callback) {
+    public void getGradeInfo(String url, Map<String, String> params, IServerResultCallback callback) {
         if (!checkParamsUrlAndCallback(url, callback)) {
             return;
         }
@@ -44,7 +43,7 @@ class ServerApi implements IServerApi {
     }
 
     @Override
-    public void getGradeInfo(String url, final IResultCallback callback) {
+    public void getGradeInfo(String url, final IServerResultCallback callback) {
         if (!checkParamsUrlAndCallback(url, callback)) {
             return;
         }
@@ -66,7 +65,7 @@ class ServerApi implements IServerApi {
     }
 
     @Override
-    public void downloadFile(String url, String destPath, final IResultCallback callback) {
+    public void downloadFile(String url, String destPath, final IServerResultCallback callback) {
         if (!checkParamsUrlAndCallback(url, callback)) {
             return;
         }
@@ -87,11 +86,39 @@ class ServerApi implements IServerApi {
             }
         });
 
+    }
+
+    @Override
+    public void downloadFileWithProgress(String url, String desPath, final IServerProgressCallback callback) {
+
+        if (!checkParamsUrlAndCallback(url, callback)) {
+            return;
+        }
+
+        OkHttp3Util.downloadFileWithProgress(url, desPath, new OkHttp3Util.ProgressResultCallback() {
+            @Override
+            public void onError(Request request, Exception e) {
+                callback.onFail(e);
+            }
+
+            @Override
+            public void onResponse(Object response) {
+                DownloadFileBean downloadFileBean = new DownloadFileBean();
+                downloadFileBean.setFilePath(((String) response));
+
+                callback.onSuccess(downloadFileBean);
+
+            }
+
+            @Override
+            public void onProgress(long numBytes, long totalBytes, float percent, float speed) {
+                callback.onProgress(numBytes, totalBytes, percent, speed);
+            }
+        });
 
     }
 
-
-    private boolean checkParamsUrlAndCallback(String url, IResultCallback callback) {
+    private boolean checkParamsUrlAndCallback(String url, IServerResultCallback callback) {
         return callback != null && !TextUtils.isEmpty(url);
     }
 }

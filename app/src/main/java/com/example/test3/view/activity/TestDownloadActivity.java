@@ -8,9 +8,8 @@ import android.widget.TextView;
 
 import com.example.test3.R;
 import com.example.test3.base.web.bean.BaseBean;
-import com.example.test3.base.web.bean.BaseResponse;
 import com.example.test3.base.web.bean.UpgradeInfoBean;
-import com.example.test3.base.web.server.IResultCallback;
+import com.example.test3.base.web.server.IServerResultCallback;
 import com.example.test3.base.web.server.ServerApiFactory;
 import com.example.test3.urils.Constant;
 
@@ -34,7 +33,7 @@ public class TestDownloadActivity extends AppCompatActivity {
     }
 
     public void downloadUpgradeInfo(View view) {
-        ServerApiFactory.getApi().getGradeInfo(Constant.UPGRADE_URL, createParam(), new IResultCallback() {
+        ServerApiFactory.getApi().getGradeInfo(Constant.UPGRADE_URL, createParam(), new IServerResultCallback() {
             @Override
             public void onFail(Exception e) {
                 updateCurrentProgress("下载失败：" + e.getMessage());
@@ -65,7 +64,7 @@ public class TestDownloadActivity extends AppCompatActivity {
     private void downloadFile(String url, String destPath) {
         updateCurrentProgress("下载文件");
 
-        ServerApiFactory.getApi().downloadFile(url, destPath, new IResultCallback() {
+        ServerApiFactory.getApi().downloadFile(url, destPath, new IServerResultCallback() {
             @Override
             public void onFail(Exception e) {
                 updateCurrentProgress("下载文件失败");

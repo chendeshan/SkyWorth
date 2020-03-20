@@ -4,6 +4,9 @@ package com.example.test3.base.web;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.example.test3.base.web.server.download.ProgressCallback;
+import com.example.test3.base.web.server.download.ProgressListener;
+import com.example.test3.base.web.server.download.ProgressResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.internal.$Gson$Types;
 
@@ -14,6 +17,7 @@ import java.io.InputStream;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.FileNameMap;
+import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +32,7 @@ import okhttp3.CookieJar;
 import okhttp3.FormBody;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -43,7 +48,6 @@ import okhttp3.Response;
 public class OkHttp3Util {
     private OkHttpClient okHttpClient;
     private Handler handler;
-    private Gson gson;
     private static OkHttp3Util mInstance;
     private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
 
@@ -62,8 +66,8 @@ public class OkHttp3Util {
                 return cookies != null ? cookies : new ArrayList<Cookie>();
             }
         }).build();
+
         handler = new Handler(Looper.getMainLooper());
-        gson = new Gson();
     }
 
     /**
@@ -316,11 +320,30 @@ public class OkHttp3Util {
         return contentTypeFor;
     }
 
-    /**
-     * 异步下载文件
-     */
-    private void _downloadFileAsync(final String url, final String destFileDir,
-                                    final ResultCallback callback) {
+    private void _downloadFileWithProgress(final String url, final String destFileDir,
+                                           final ProgressResultCallback callback) {
+        final ProgressListener progressListener = new ProgressListener() {
+            @Override
+            public void onProgressChanged(long numBytes, long totalBytes, float percent, float speed) {
+
+            }
+        };
+
+        OkHttpClient build = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Response response = chain.proceed(chain.request());
+                        ProgressResponseBody progressResponseBody = new ProgressResponseBody(response.body(), progressListener);
+                        return new Response.Builder().body(progressResponseBody).build();
+                    }
+                })
+                .build();
+
+        _downloadAsync(build, url, destFileDir, callback);
+    }
+
+    private void _downloadAsync(OkHttpClient client, final String url, final String destFileDir, final ResultCallback callback) {
         final Request request = new Request.Builder().url(url).build();
         final Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
@@ -367,6 +390,14 @@ public class OkHttp3Util {
         });
     }
 
+    /**
+     * 异步下载文件
+     */
+    private void _downloadFileAsync(final String url, final String destFileDir,
+                                    final ResultCallback callback) {
+        _downloadAsync(okHttpClient, url, destFileDir, callback);
+    }
+
     private String getFileName(String path) {
         int separatorIndex = path.lastIndexOf("/");
         return (separatorIndex < 0) ? path : path.substring(separatorIndex + 1,
@@ -398,6 +429,10 @@ public class OkHttp3Util {
     public static void downloadFileAsync(String url, String destPath, ResultCallback callback) {
 
         getInstance()._downloadFileAsync(url, destPath, callback);
+    }
+
+    public static void downloadFileWithProgress(String url, String destPath, ProgressResultCallback callback) {
+        getInstance()._downloadFileWithProgress(url, destPath, callback);
     }
 
     /**
@@ -536,22 +571,6 @@ public class OkHttp3Util {
      * @param <T>
      */
     public static abstract class ResultCallback<T> {
-
-        /**
-         * 通过反射想要的返回类型
-         *
-         * @param subclass
-         * @return
-         */
-        static Type getSuperclassTypeParameter(Class<?> subclass) {
-            Type superclass = subclass.getGenericSuperclass();
-            if (superclass instanceof Class) {
-                throw new RuntimeException("Missing type parameter.");
-            }
-            ParameterizedType parameterized = (ParameterizedType) superclass;
-            return $Gson$Types.canonicalize(parameterized.getActualTypeArguments()[0]);
-        }
-
         //失败回调
         public abstract void onError(Request request, Exception e);
 
@@ -559,7 +578,9 @@ public class OkHttp3Util {
         public abstract void onResponse(T response);
     }
 
-    private Map<String, String> mSessions = new HashMap<>();
+    public static abstract class ProgressResultCallback extends ResultCallback {
+        public abstract void onProgress(long numBytes, long totalBytes, float percent, float speed);
+    }
 
     /**
      * 请求回调处理方法并传递返回值
