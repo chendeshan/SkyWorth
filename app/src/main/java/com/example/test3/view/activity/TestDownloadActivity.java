@@ -1,6 +1,5 @@
 package com.example.test3.view.activity;
 
-import android.icu.text.StringPrepParseException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -10,18 +9,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.test3.R;
 import com.example.test3.base.web.bean.BaseBean;
-import com.example.test3.base.web.bean.DownloadFileBean;
 import com.example.test3.base.web.bean.UpgradeInfoBean;
 import com.example.test3.base.web.server.IServerResultCallback;
 import com.example.test3.base.web.server.ServerApiFactory;
 import com.example.test3.urils.CommonUtil;
 import com.example.test3.urils.Constant;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.PropertyResourceBundle;
 
 public class TestDownloadActivity extends AppCompatActivity {
 
