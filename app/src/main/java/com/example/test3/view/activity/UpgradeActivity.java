@@ -3,6 +3,7 @@ package com.example.test3.view.activity;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -101,17 +102,17 @@ public class UpgradeActivity extends Activity {
                 .setNegativeButton(R.string.text_see_see, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        showNetUpgradeLayout();
-                        dismissProgressDialog();
                         dialog.dismiss();
                     }
                 })
                 .setPositiveButton(R.string.text_ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        showNetUpgradeLayout();
-                        dismissProgressDialog();
                         dialog.dismiss();
+
+                        showProgressDialog();
+                        showNetUpgradingLayout();
+
                         downloadUpgradeInfo();
                     }
                 })
@@ -177,6 +178,8 @@ public class UpgradeActivity extends Activity {
         ServerApiFactory.getApi().getGradeInfo(Constant.UPGRADE_URL, createParam(), new IServerResultCallback() {
             @Override
             public void onFail(Exception e) {
+                showNetUpgradeLayout();
+                dismissProgressDialog();
                 showNetFailDialog();
             }
 
@@ -193,6 +196,8 @@ public class UpgradeActivity extends Activity {
                 mDownloadUpgradePackageManager.downloadPackages(downloadInfos, getPath(), new DownloadUpgradePackageManager.IDownloadCallback() {
                     @Override
                     public void onFail(Exception e) {
+                        showNetUpgradeLayout();
+                        dismissProgressDialog();
                         showNetFailDialog();
                     }
 
@@ -209,8 +214,9 @@ public class UpgradeActivity extends Activity {
 
     private String getPath() {
         String basePath = getExternalFilesDir("skyworth").getPath();
+        String path = Environment.getExternalStorageDirectory().getPath() + "/skyworth";
 
-        return basePath;
+        return path;
     }
 
 
