@@ -1,5 +1,10 @@
 package com.example.test3.urils;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
+import android.text.format.Formatter;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -85,5 +90,15 @@ public class CommonUtil {
         }
 
         return stringBuilder.toString();
+    }
+
+    public static long getAvailMemory(Activity context) {// 获取android当前可用内存大小
+
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
+        am.getMemoryInfo(mi);
+        //mi.availMem; 当前系统的可用内存
+
+        return mi.availMem;// 将获取的内存大小规格化
     }
 }

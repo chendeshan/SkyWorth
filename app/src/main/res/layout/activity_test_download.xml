@@ -15,7 +15,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="downloadUpgradeInfo"
+            android:onClick="downloadUpgradeInfoClick"
             android:text="下载更新信息" />
     </LinearLayout>
 

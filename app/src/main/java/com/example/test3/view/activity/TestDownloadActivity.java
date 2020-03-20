@@ -1,23 +1,27 @@
 package com.example.test3.view.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.icu.text.StringPrepParseException;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.test3.R;
 import com.example.test3.base.web.bean.BaseBean;
+import com.example.test3.base.web.bean.DownloadFileBean;
 import com.example.test3.base.web.bean.UpgradeInfoBean;
-import com.example.test3.base.web.server.IServerProgressCallback;
 import com.example.test3.base.web.server.IServerResultCallback;
 import com.example.test3.base.web.server.ServerApiFactory;
+import com.example.test3.urils.CommonUtil;
 import com.example.test3.urils.Constant;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PropertyResourceBundle;
 
 public class TestDownloadActivity extends AppCompatActivity {
 
@@ -34,7 +38,11 @@ public class TestDownloadActivity extends AppCompatActivity {
         mCurrentProgressView = (TextView) findViewById(R.id.activity_test_download_current_progress);
     }
 
-    public void downloadUpgradeInfo(View view) {
+    public void downloadUpgradeInfoClick(View view) {
+        downloadGradeInfo();
+    }
+
+    private void downloadGradeInfo() {
         ServerApiFactory.getApi().getGradeInfo(Constant.UPGRADE_URL, createParam(), new IServerResultCallback() {
             @Override
             public void onFail(Exception e) {
@@ -43,12 +51,68 @@ public class TestDownloadActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(BaseBean response) {
-                updateCurrentProgress("下载成功");
+                List<UpgradeInfoBean.DataBean.CameraFwBean.FwBean> fwBeans = getFwBeans(response);
 
-                String fileUrl = getFileUrl(response);
-                downloadFile(fileUrl, getPath());
+                if (!checkMemoryCache(fwBeans)) {
+                    Toast.makeText(TestDownloadActivity.this, "没有足够的空间", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                downloadFiles(fwBeans);
             }
         });
+    }
+
+    private void downloadFiles(final List<UpgradeInfoBean.DataBean.CameraFwBean.FwBean> fwBeans) {
+        String path = getPath();
+
+        if (fwBeans.size() > 0) {
+            final UpgradeInfoBean.DataBean.CameraFwBean.FwBean fwBean = fwBeans.get(0);
+            String url = fwBean.getFwInfo().getUrl();
+
+            ServerApiFactory.getApi().downloadFile(url, path, new IServerResultCallback() {
+                @Override
+                public void onFail(Exception e) {
+
+                }
+
+                @Override
+                public void onSuccess(BaseBean response) {
+                    fwBeans.remove(0);
+                    downloadFiles(fwBeans);
+                }
+            });
+
+        }
+
+    }
+
+    private boolean checkMemoryCache(List<UpgradeInfoBean.DataBean.CameraFwBean.FwBean> fwBeans) {
+        long neededCache = 0;
+
+        for (UpgradeInfoBean.DataBean.CameraFwBean.FwBean fwBean : fwBeans) {
+            UpgradeInfoBean.DataBean.CameraFwBean.FwBean.FwInfoBean fwInfo = fwBean.getFwInfo();
+            int size = fwInfo.getSize();
+
+            neededCache += size;
+        }
+
+        long availMemory = CommonUtil.getAvailMemory(this);
+
+        if (neededCache * 2 > availMemory) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private List<UpgradeInfoBean.DataBean.CameraFwBean.FwBean> getFwBeans(BaseBean response) {
+        UpgradeInfoBean upgradeInfoBean = (UpgradeInfoBean) response;
+        UpgradeInfoBean.DataBean data = upgradeInfoBean.getData();
+        UpgradeInfoBean.DataBean.CameraFwBean camera_fw = data.getCamera_fw();
+        List<UpgradeInfoBean.DataBean.CameraFwBean.FwBean> fw = camera_fw.getFw();
+
+        return fw;
     }
 
     private String getFileUrl(BaseBean response) {
