@@ -5,11 +5,27 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.MainActivity">
 
-    <Button
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:onClick="settingClick"
-        android:text="设置" />
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_background"
+            android:onClick="settingClick"
+            android:text="设置" />
+
+        <Button
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_background"
+            android:onClick="testDownloadClick"
+            android:text="下载测试" />
+    </LinearLayout>
+
 
 </RelativeLayout>

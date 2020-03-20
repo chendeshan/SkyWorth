@@ -16,7 +16,21 @@ public class MainActivity extends Activity {
     }
 
     public void settingClick(View view) {
+        startSettingActivity();
+    }
+
+    public void testDownloadClick(View view) {
+        startTestDownloadActivity();
+    }
+
+    private void startSettingActivity() {
         Intent intent = new Intent(this, SettingActivity.class);
+
+        startActivity(intent);
+    }
+
+    private void startTestDownloadActivity() {
+        Intent intent = new Intent(this, TestDownloadActivity.class);
 
         startActivity(intent);
     }
