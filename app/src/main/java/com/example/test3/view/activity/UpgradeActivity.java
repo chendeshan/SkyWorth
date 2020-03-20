@@ -198,6 +198,8 @@ public class UpgradeActivity extends Activity {
 
                     @Override
                     public void onSuccess(List<String> paths) {
+                        dismissProgressDialog();
+                        showNetUpgradeLayout();
                         // TODO: 2020/3/20 upgrade
                     }
                 });
