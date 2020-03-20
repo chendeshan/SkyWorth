@@ -325,7 +325,7 @@ public class OkHttp3Util {
         final ProgressListener progressListener = new ProgressListener() {
             @Override
             public void onProgressChanged(long numBytes, long totalBytes, float percent, float speed) {
-
+                sendProgressCallback(numBytes, totalBytes, percent, speed, callback);
             }
         };
 
@@ -644,6 +644,18 @@ public class OkHttp3Util {
             }
         });
     }
+
+    private void sendProgressCallback(final long numBytes, final long totalBytes, final float percent, final float speed, final ProgressResultCallback callback) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (callback != null) {
+                    callback.onProgress(numBytes, totalBytes, percent, speed);
+                }
+            }
+        });
+    }
+
 
     public static class Param {
         public Param() {
