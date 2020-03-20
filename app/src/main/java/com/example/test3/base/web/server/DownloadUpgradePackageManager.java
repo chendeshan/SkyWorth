@@ -16,7 +16,7 @@ public class DownloadUpgradePackageManager {
         mDownloadSuccessPaths = new ArrayList<>();
     }
 
-    public void downloadPackages(List<DownloadInfo> downloadInfos, String destPath, final IDownloadCallback callback) {
+    public void downloadPackages(final List<DownloadInfo> downloadInfos, final String destPath, final IDownloadCallback callback) {
         if (isDownloading()) {
             return;
         }
@@ -24,7 +24,10 @@ public class DownloadUpgradePackageManager {
         mDownloadSuccessPaths.clear();
         mCurrentState = DownloadState.DOWNLOADING;
 
+        download(downloadInfos, destPath, callback);
+    }
 
+    private void download(final List<DownloadInfo> downloadInfos, final String destPath, final IDownloadCallback callback) {
         if (downloadInfos.size() > 0) {
             String url = downloadInfos.get(0).getUrl();
             ServerApiFactory.getApi().downloadFile(url, destPath, new IServerResultCallback() {
@@ -39,13 +42,15 @@ public class DownloadUpgradePackageManager {
                     DownloadFileBean downloadFileBean = (DownloadFileBean) response;
                     String filePath = downloadFileBean.getFilePath();
                     mDownloadSuccessPaths.add(filePath);
+                    downloadInfos.remove(0);
+
+                    download(downloadInfos, destPath, callback);
                 }
             });
         } else {
             callback.onSuccess(mDownloadSuccessPaths);
             mCurrentState = DownloadState.IDLE;
         }
-
     }
 
     public List<String> getDownloadSuccessPaths() {
