@@ -35,14 +35,18 @@ public class CommonUtil {
             return null;
         }
 
-        MessageDigest digest;
+        MessageDigest digest = null;
         FileInputStream in = null;
         byte buffer[] = new byte[1024];
         int len;
 
         try {
-
             digest = MessageDigest.getInstance("MD5");
+
+            if (digest == null) {
+                return null;
+            }
+
             in = new FileInputStream(file);
 
             while ((len = in.read(buffer, 0, 1024)) != -1) {
@@ -51,7 +55,6 @@ public class CommonUtil {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }finally {
             if (in != null) {
                 try {
