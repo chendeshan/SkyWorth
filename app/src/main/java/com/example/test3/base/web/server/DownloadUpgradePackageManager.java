@@ -16,7 +16,7 @@ public class DownloadUpgradePackageManager {
         mDownloadSuccessPaths = new ArrayList<>();
     }
 
-    public void downloadPackages(List<String> urls, String destPath, final IDownloadCallback callback) {
+    public void downloadPackages(List<DownloadInfo> downloadInfos, String destPath, final IDownloadCallback callback) {
         if (isDownloading()) {
             return;
         }
@@ -25,8 +25,8 @@ public class DownloadUpgradePackageManager {
         mCurrentState = DownloadState.DOWNLOADING;
 
 
-        if (urls.size() > 0) {
-            String url = urls.get(0);
+        if (downloadInfos.size() > 0) {
+            String url = downloadInfos.get(0).getUrl();
             ServerApiFactory.getApi().downloadFile(url, destPath, new IServerResultCallback() {
                 @Override
                 public void onFail(Exception e) {
@@ -71,5 +71,27 @@ public class DownloadUpgradePackageManager {
         DOWNLOADING,
         ERROR,
     }
+
+    public static class DownloadInfo {
+        private String md5;
+        private String url;
+
+        public String getMd5() {
+            return md5;
+        }
+
+        public void setMd5(String md5) {
+            this.md5 = md5;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+    }
+
 
 }

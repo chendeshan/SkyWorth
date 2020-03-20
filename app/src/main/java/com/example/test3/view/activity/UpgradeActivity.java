@@ -6,22 +6,29 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.test3.R;
 import com.example.test3.base.web.bean.BaseBean;
+import com.example.test3.base.web.bean.UpgradeInfoBean;
+import com.example.test3.base.web.server.DownloadUpgradePackageManager;
 import com.example.test3.base.web.server.IServerResultCallback;
 import com.example.test3.base.web.server.ServerApiFactory;
+import com.example.test3.urils.CommonUtil;
 import com.example.test3.urils.Constant;
 import com.example.test3.view.widget.BaseAlertDialog;
 import com.example.test3.view.widget.ProgressDialog;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class UpgradeActivity extends Activity {
     private static final String TAG = "UpgradeActivity";
+    private DownloadUpgradePackageManager mDownloadUpgradePackageManager = new DownloadUpgradePackageManager();
 
     private ProgressDialog mProgressDialog;
 
@@ -53,18 +60,7 @@ public class UpgradeActivity extends Activity {
     public void netUpgradeClick(View view) {
         showProgressDialog();
         showNetUpgradingLayout();
-
-        fakeDelay(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        showNetFailDialog();
-                    }
-                });
-            }
-        });
+        downloadUpgradeInfo();
     }
 
 
@@ -116,6 +112,7 @@ public class UpgradeActivity extends Activity {
                         showNetUpgradeLayout();
                         dismissProgressDialog();
                         dialog.dismiss();
+                        downloadUpgradeInfo();
                     }
                 })
                 .setCancelEnable(false)
@@ -180,14 +177,85 @@ public class UpgradeActivity extends Activity {
         ServerApiFactory.getApi().getGradeInfo(Constant.UPGRADE_URL, createParam(), new IServerResultCallback() {
             @Override
             public void onFail(Exception e) {
-
+                showNetFailDialog();
             }
 
             @Override
             public void onSuccess(BaseBean response) {
+                List<UpgradeInfoBean.DataBean.CameraFwBean.FwBean> fwBeans = getFwBeans(response);
 
+                if (!checkMemoryCache(fwBeans)) {
+                    Toast.makeText(UpgradeActivity.this, "没有足够的空间", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                List<DownloadUpgradePackageManager.DownloadInfo> downloadInfos = getDownloadInfos(fwBeans);
+                mDownloadUpgradePackageManager.downloadPackages(downloadInfos, getPath(), new DownloadUpgradePackageManager.IDownloadCallback() {
+                    @Override
+                    public void onFail(Exception e) {
+                        showNetFailDialog();
+                    }
+
+                    @Override
+                    public void onSuccess(List<String> paths) {
+                        // TODO: 2020/3/20 upgrade
+                    }
+                });
             }
         });
+    }
+
+    private String getPath() {
+        String basePath = getExternalFilesDir("skyworth").getPath();
+
+        return basePath;
+    }
+
+
+    private List<DownloadUpgradePackageManager.DownloadInfo> getDownloadInfos(List<UpgradeInfoBean.DataBean.CameraFwBean.FwBean> fwBeans) {
+        List<DownloadUpgradePackageManager.DownloadInfo> infos = new ArrayList<>();
+
+        for (UpgradeInfoBean.DataBean.CameraFwBean.FwBean fwBean : fwBeans) {
+            UpgradeInfoBean.DataBean.CameraFwBean.FwBean.FwInfoBean fwInfo = fwBean.getFwInfo();
+            String url = fwInfo.getUrl();
+            String md5 = fwInfo.getMd5();
+
+            DownloadUpgradePackageManager.DownloadInfo info = new DownloadUpgradePackageManager.DownloadInfo();
+            info.setUrl(url);
+            info.setMd5(md5);
+
+            infos.add(info);
+        }
+
+        return infos;
+    }
+
+    private boolean checkMemoryCache(List<UpgradeInfoBean.DataBean.CameraFwBean.FwBean> fwBeans) {
+        long neededCache = 0;
+
+        for (UpgradeInfoBean.DataBean.CameraFwBean.FwBean fwBean : fwBeans) {
+            UpgradeInfoBean.DataBean.CameraFwBean.FwBean.FwInfoBean fwInfo = fwBean.getFwInfo();
+            int size = fwInfo.getSize();
+
+            neededCache += size;
+        }
+
+        long availMemory = CommonUtil.getAvailMemory(this);
+
+        if (neededCache * 2 > availMemory) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private List<UpgradeInfoBean.DataBean.CameraFwBean.FwBean> getFwBeans(BaseBean response) {
+        UpgradeInfoBean upgradeInfoBean = (UpgradeInfoBean) response;
+        UpgradeInfoBean.DataBean data = upgradeInfoBean.getData();
+        UpgradeInfoBean.DataBean.CameraFwBean camera_fw = data.getCamera_fw();
+        List<UpgradeInfoBean.DataBean.CameraFwBean.FwBean> fw = camera_fw.getFw();
+
+        return fw;
     }
 
     private Map<String,String> createParam() {
