@@ -8,12 +8,15 @@ import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.ViewGroup.LayoutParams;
 
 import com.example.test3.R;
+import com.example.test3.urils.CommonUtil;
 
 public class BaseAlertDialog extends Dialog {
     BaseAlertDialog(Context context) {
@@ -95,6 +98,17 @@ public class BaseAlertDialog extends Dialog {
 //            button.setBackgroundResource(enable ? R.drawable.dialog_btn_background : R.drawable.dialog_btn_background);
             button.setEnabled(enable);
         }
+    }
+
+    @Override
+    public void show() {
+        int size = CommonUtil.dp2px(getContext(), 360);
+        Window dialogWindow = getWindow();
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        lp.width = size;
+        dialogWindow.setAttributes(lp);
+
+        super.show();
     }
 
     /**

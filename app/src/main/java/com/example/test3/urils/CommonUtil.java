@@ -101,4 +101,18 @@ public class CommonUtil {
 
         return mi.availMem;// 将获取的内存大小规格化
     }
+
+    // convert dpi to pixel
+    public static int dp2px(Context context, float dp) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+
+        return (int) (dp * scale + 0.5f);
+    }
+
+    // convert pixel to dpi
+    public static int px2dp(Context context, float px) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+
+        return (int) (px / scale + 0.5f);
+    }
 }
