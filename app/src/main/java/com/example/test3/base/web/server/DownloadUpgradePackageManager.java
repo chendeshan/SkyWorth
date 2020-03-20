@@ -2,7 +2,9 @@ package com.example.test3.base.web.server;
 
 import com.example.test3.base.web.bean.BaseBean;
 import com.example.test3.base.web.bean.DownloadFileBean;
+import com.example.test3.urils.CommonUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,8 @@ public class DownloadUpgradePackageManager {
 
     private void download(final List<DownloadInfo> downloadInfos, final String destPath, final IDownloadCallback callback) {
         if (downloadInfos.size() > 0) {
-            String url = downloadInfos.get(0).getUrl();
+            final DownloadInfo info = downloadInfos.get(0);
+            String url = info.getUrl();
             ServerApiFactory.getApi().downloadFile(url, destPath, new IServerResultCallback() {
                 @Override
                 public void onFail(Exception e) {
@@ -42,7 +45,11 @@ public class DownloadUpgradePackageManager {
                     DownloadFileBean downloadFileBean = (DownloadFileBean) response;
                     String filePath = downloadFileBean.getFilePath();
                     mDownloadSuccessPaths.add(filePath);
+
+//                    if (checkFileMd5(filePath, info.getMd5())) {
                     downloadInfos.remove(0);
+
+//                    }
 
                     download(downloadInfos, destPath, callback);
                 }
@@ -51,6 +58,12 @@ public class DownloadUpgradePackageManager {
             callback.onSuccess(mDownloadSuccessPaths);
             mCurrentState = DownloadState.IDLE;
         }
+    }
+
+    private boolean checkFileMd5(String path, String srcMd5) {
+        String fileMD5 = CommonUtil.getFileMD5(new File(path));
+
+        return srcMd5.equals(fileMD5);
     }
 
     public List<String> getDownloadSuccessPaths() {
