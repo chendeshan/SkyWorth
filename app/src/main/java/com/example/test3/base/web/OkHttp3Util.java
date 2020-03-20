@@ -4,20 +4,11 @@ package com.example.test3.base.web;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.example.test3.base.web.server.download.ProgressCallback;
-import com.example.test3.base.web.server.download.ProgressListener;
-import com.example.test3.base.web.server.download.ProgressResponseBody;
-import com.google.gson.Gson;
-import com.google.gson.internal.$Gson$Types;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.net.FileNameMap;
-import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +23,6 @@ import okhttp3.CookieJar;
 import okhttp3.FormBody;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -320,32 +310,9 @@ public class OkHttp3Util {
         return contentTypeFor;
     }
 
-    private void _downloadFileWithProgress(final String url, final String destFileDir,
-                                           final ProgressResultCallback callback) {
-        final ProgressListener progressListener = new ProgressListener() {
-            @Override
-            public void onProgressChanged(long numBytes, long totalBytes, float percent, float speed) {
-                sendProgressCallback(numBytes, totalBytes, percent, speed, callback);
-            }
-        };
-
-        OkHttpClient build = new OkHttpClient.Builder()
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Response response = chain.proceed(chain.request());
-                        ProgressResponseBody progressResponseBody = new ProgressResponseBody(response.body(), progressListener);
-                        return new Response.Builder().body(progressResponseBody).build();
-                    }
-                })
-                .build();
-
-        _downloadAsync(build, url, destFileDir, callback);
-    }
-
     private void _downloadAsync(OkHttpClient client, final String url, final String destFileDir, final ResultCallback callback) {
         final Request request = new Request.Builder().url(url).build();
-        final Call call = okHttpClient.newCall(request);
+        final Call call = client.newCall(request);
         call.enqueue(new Callback() {
 
             @Override
@@ -429,10 +396,6 @@ public class OkHttp3Util {
     public static void downloadFileAsync(String url, String destPath, ResultCallback callback) {
 
         getInstance()._downloadFileAsync(url, destPath, callback);
-    }
-
-    public static void downloadFileWithProgress(String url, String destPath, ProgressResultCallback callback) {
-        getInstance()._downloadFileWithProgress(url, destPath, callback);
     }
 
     /**

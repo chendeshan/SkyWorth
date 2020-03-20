@@ -6,7 +6,6 @@ import com.example.test3.base.web.OkHttp3Util;
 import com.example.test3.base.web.bean.DownloadFileBean;
 import com.example.test3.base.web.bean.UpgradeInfoBean;
 import com.example.test3.base.web.mapper.Mapper;
-import com.example.test3.base.web.server.download.ProgressCallback;
 
 import java.util.Map;
 
@@ -83,36 +82,6 @@ class ServerApi implements IServerApi {
 
                 callback.onSuccess(downloadFileBean);
 
-            }
-        });
-
-    }
-
-    @Override
-    public void downloadFileWithProgress(String url, String desPath, final IServerProgressCallback callback) {
-
-        if (!checkParamsUrlAndCallback(url, callback)) {
-            return;
-        }
-
-        OkHttp3Util.downloadFileWithProgress(url, desPath, new OkHttp3Util.ProgressResultCallback() {
-            @Override
-            public void onError(Request request, Exception e) {
-                callback.onFail(e);
-            }
-
-            @Override
-            public void onResponse(Object response) {
-                DownloadFileBean downloadFileBean = new DownloadFileBean();
-                downloadFileBean.setFilePath(((String) response));
-
-                callback.onSuccess(downloadFileBean);
-
-            }
-
-            @Override
-            public void onProgress(long numBytes, long totalBytes, float percent, float speed) {
-                callback.onProgress(numBytes, totalBytes, percent, speed);
             }
         });
 

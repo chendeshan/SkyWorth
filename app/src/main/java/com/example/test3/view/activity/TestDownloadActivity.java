@@ -3,12 +3,14 @@ package com.example.test3.view.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.test3.R;
 import com.example.test3.base.web.bean.BaseBean;
 import com.example.test3.base.web.bean.UpgradeInfoBean;
+import com.example.test3.base.web.server.IServerProgressCallback;
 import com.example.test3.base.web.server.IServerResultCallback;
 import com.example.test3.base.web.server.ServerApiFactory;
 import com.example.test3.urils.Constant;
