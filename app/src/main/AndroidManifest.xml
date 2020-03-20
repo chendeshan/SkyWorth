@@ -31,17 +31,16 @@
             android:name=".view.activity.SettingActivity"
             android:screenOrientation="landscape"
             android:theme="@style/SkyWorthTheme">
-        </activity>
-        <activity
-            android:name=".view.activity.MainActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/SkyWorthTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.activity.MainActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/SkyWorthTheme" />
     </application>
 
 </manifest>
