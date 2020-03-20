@@ -8,7 +8,7 @@ public class Constant {
     public static final String UPGRADE_URL = BASE_URL + "/tvhallapi/tvcamerafw/upgrade";
 
     /*filePath*/
-    public static final String BASE_PATH = Environment.getExternalStorageDirectory().getPath();
-    public static final String APP_PATH = BASE_PATH + "/skyworth";
+    public static final String BASE_PATH = Environment.getDataDirectory().getAbsolutePath();
+    public static final String APP_PATH = "/skyworth";
 
 }

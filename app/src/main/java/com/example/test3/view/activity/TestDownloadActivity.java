@@ -46,7 +46,7 @@ public class TestDownloadActivity extends AppCompatActivity {
                 updateCurrentProgress("下载成功");
 
                 String fileUrl = getFileUrl(response);
-                downloadFile(fileUrl, Constant.APP_PATH);
+                downloadFile(fileUrl, getPath());
             }
         });
     }
@@ -77,6 +77,12 @@ public class TestDownloadActivity extends AppCompatActivity {
                 updateCurrentProgress("下载文件成功");
             }
         });
+    }
+
+    private String getPath() {
+        String basePath = getExternalFilesDir("skyworth").getPath();
+
+        return basePath;
     }
 
     private void updateCurrentProgress(final String message) {
