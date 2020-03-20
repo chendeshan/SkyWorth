@@ -338,6 +338,12 @@ public class OkHttp3Util {
                 FileOutputStream fos = null;
                 try {
                     is = response.body().byteStream();
+                    File desFile = new File(destFileDir);
+
+                    if (!desFile.exists()) {
+                        desFile.mkdirs();
+                    }
+
                     File file = new File(destFileDir, getFileName(url));
                     fos = new FileOutputStream(file);
                     while ((len = is.read(b)) != -1) {
@@ -387,6 +393,11 @@ public class OkHttp3Util {
      */
     public static String getDataString(String url) throws IOException {
         return getInstance()._getDataString(url);
+    }
+
+    public static void downloadFileAsync(String url, String destPath, ResultCallback callback) {
+
+        getInstance()._downloadFileAsync(url, destPath, callback);
     }
 
     /**

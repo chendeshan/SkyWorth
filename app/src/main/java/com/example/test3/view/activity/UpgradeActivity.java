@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.test3.R;
+import com.example.test3.base.web.bean.BaseBean;
 import com.example.test3.base.web.bean.BaseResponse;
 import com.example.test3.base.web.server.IResultCallback;
 import com.example.test3.base.web.server.ServerApiFactory;
@@ -184,7 +185,7 @@ public class UpgradeActivity extends Activity {
             }
 
             @Override
-            public void onSuccess(BaseResponse response) {
+            public void onSuccess(BaseBean response) {
 
             }
         });

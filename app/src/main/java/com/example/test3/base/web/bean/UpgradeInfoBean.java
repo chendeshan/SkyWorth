@@ -4,213 +4,114 @@ import java.util.List;
 
 public class UpgradeInfoBean extends BaseBean {
 
+    private DataBean data;
 
-    /**
-     * camera_fw : {"msg":"success","fw":[{"sid":6,"fwVersion":"cm400pro-008-01-2020031609","fwInfo":{"sid":6,"md5":"f9fb09db6087737d2b16ce82ab8c4039","url":"http://172.22.201.90/group1/M00/00/02/rBbJWl5vKbeAdcRHAjlYWnO5ovE2788.gz","size":37312602},"lVersion":"008","sVersion":"01","tvModel":"","tvVersion":"","aiProvider":"","aiVersion":"","kernelVersion":"","protocalVersion":"","upInfo":"测试升级"}],"total":1}
-     * motor_fw : {"msg":"success","fw":[],"total":0}
-     * screen_fw : {"msg":"success","fw":[],"total":0}
-     */
-
-    private CameraFwBean camera_fw;
-    private MotorFwBean motor_fw;
-    private ScreenFwBean screen_fw;
-
-    public CameraFwBean getCamera_fw() {
-        return camera_fw;
+    public DataBean getData() {
+        return data;
     }
 
-    public void setCamera_fw(CameraFwBean camera_fw) {
-        this.camera_fw = camera_fw;
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
-    public MotorFwBean getMotor_fw() {
-        return motor_fw;
-    }
-
-    public void setMotor_fw(MotorFwBean motor_fw) {
-        this.motor_fw = motor_fw;
-    }
-
-    public ScreenFwBean getScreen_fw() {
-        return screen_fw;
-    }
-
-    public void setScreen_fw(ScreenFwBean screen_fw) {
-        this.screen_fw = screen_fw;
-    }
-
-    public static class CameraFwBean {
+    public static class DataBean {
         /**
-         * msg : success
-         * fw : [{"sid":6,"fwVersion":"cm400pro-008-01-2020031609","fwInfo":{"sid":6,"md5":"f9fb09db6087737d2b16ce82ab8c4039","url":"http://172.22.201.90/group1/M00/00/02/rBbJWl5vKbeAdcRHAjlYWnO5ovE2788.gz","size":37312602},"lVersion":"008","sVersion":"01","tvModel":"","tvVersion":"","aiProvider":"","aiVersion":"","kernelVersion":"","protocalVersion":"","upInfo":"测试升级"}]
-         * total : 1
+         * camera_fw : {"msg":"success","fw":[{"sid":7,"fwVersion":"cm400pro-010-01-2020031616","fwInfo":{"sid":7,"md5":"ef9aeea77ec79c8b245659ed3e0f97bc","url":"http://172.22.201.90/group1/M00/00/02/rBbJWl50KH2AGTBUAjleHVw29CI4536.gz","size":37314077},"lVersion":"010","sVersion":"01","tvModel":"","tvVersion":"","aiProvider":"","aiVersion":"","kernelVersion":"","protocalVersion":"","upInfo":"测试2"},{"sid":8,"fwVersion":"cm400pro-010-01-2020031616","fwInfo":{"sid":8,"md5":"ef9aeea77ec79c8b245659ed3e0f97bc","url":"http://172.22.201.90/group1/M00/00/02/rBbJWl50LmWAIl8GAjleHVw29CI1471.gz","size":37314077},"lVersion":"010","sVersion":"02","tvModel":"","tvVersion":"","aiProvider":"","aiVersion":"","kernelVersion":"","protocalVersion":"","upInfo":"测试小版本"}],"total":3}
+         * motor_fw : {"msg":"success","fw":[],"total":0}
+         * screen_fw : {"msg":"success","fw":[],"total":0}
          */
 
-        private String msg;
-        private int total;
-        private List<FwBean> fw;
+        private DataBean.CameraFwBean camera_fw;
+        private DataBean.MotorFwBean motor_fw;
+        private DataBean.ScreenFwBean screen_fw;
 
-        public String getMsg() {
-            return msg;
+        public DataBean.CameraFwBean getCamera_fw() {
+            return camera_fw;
         }
 
-        public void setMsg(String msg) {
-            this.msg = msg;
+        public void setCamera_fw(DataBean.CameraFwBean camera_fw) {
+            this.camera_fw = camera_fw;
         }
 
-        public int getTotal() {
-            return total;
+        public DataBean.MotorFwBean getMotor_fw() {
+            return motor_fw;
         }
 
-        public void setTotal(int total) {
-            this.total = total;
+        public void setMotor_fw(DataBean.MotorFwBean motor_fw) {
+            this.motor_fw = motor_fw;
         }
 
-        public List<FwBean> getFw() {
-            return fw;
+        public DataBean.ScreenFwBean getScreen_fw() {
+            return screen_fw;
         }
 
-        public void setFw(List<FwBean> fw) {
-            this.fw = fw;
+        public void setScreen_fw(DataBean.ScreenFwBean screen_fw) {
+            this.screen_fw = screen_fw;
         }
 
-        public static class FwBean {
+        public static class CameraFwBean {
             /**
-             * sid : 6
-             * fwVersion : cm400pro-008-01-2020031609
-             * fwInfo : {"sid":6,"md5":"f9fb09db6087737d2b16ce82ab8c4039","url":"http://172.22.201.90/group1/M00/00/02/rBbJWl5vKbeAdcRHAjlYWnO5ovE2788.gz","size":37312602}
-             * lVersion : 008
-             * sVersion : 01
-             * tvModel :
-             * tvVersion :
-             * aiProvider :
-             * aiVersion :
-             * kernelVersion :
-             * protocalVersion :
-             * upInfo : 测试升级
+             * msg : success
+             * fw : [{"sid":7,"fwVersion":"cm400pro-010-01-2020031616","fwInfo":{"sid":7,"md5":"ef9aeea77ec79c8b245659ed3e0f97bc","url":"http://172.22.201.90/group1/M00/00/02/rBbJWl50KH2AGTBUAjleHVw29CI4536.gz","size":37314077},"lVersion":"010","sVersion":"01","tvModel":"","tvVersion":"","aiProvider":"","aiVersion":"","kernelVersion":"","protocalVersion":"","upInfo":"测试2"},{"sid":8,"fwVersion":"cm400pro-010-01-2020031616","fwInfo":{"sid":8,"md5":"ef9aeea77ec79c8b245659ed3e0f97bc","url":"http://172.22.201.90/group1/M00/00/02/rBbJWl50LmWAIl8GAjleHVw29CI1471.gz","size":37314077},"lVersion":"010","sVersion":"02","tvModel":"","tvVersion":"","aiProvider":"","aiVersion":"","kernelVersion":"","protocalVersion":"","upInfo":"测试小版本"}]
+             * total : 3
              */
 
-            private int sid;
-            private String fwVersion;
-            private FwInfoBean fwInfo;
-            private String lVersion;
-            private String sVersion;
-            private String tvModel;
-            private String tvVersion;
-            private String aiProvider;
-            private String aiVersion;
-            private String kernelVersion;
-            private String protocalVersion;
-            private String upInfo;
+            private String msg;
+            private int total;
+            private List<DataBean.CameraFwBean.FwBean> fw;
 
-            public int getSid() {
-                return sid;
+            public String getMsg() {
+                return msg;
             }
 
-            public void setSid(int sid) {
-                this.sid = sid;
+            public void setMsg(String msg) {
+                this.msg = msg;
             }
 
-            public String getFwVersion() {
-                return fwVersion;
+            public int getTotal() {
+                return total;
             }
 
-            public void setFwVersion(String fwVersion) {
-                this.fwVersion = fwVersion;
+            public void setTotal(int total) {
+                this.total = total;
             }
 
-            public FwInfoBean getFwInfo() {
-                return fwInfo;
+            public List<DataBean.CameraFwBean.FwBean> getFw() {
+                return fw;
             }
 
-            public void setFwInfo(FwInfoBean fwInfo) {
-                this.fwInfo = fwInfo;
+            public void setFw(List<DataBean.CameraFwBean.FwBean> fw) {
+                this.fw = fw;
             }
 
-            public String getLVersion() {
-                return lVersion;
-            }
-
-            public void setLVersion(String lVersion) {
-                this.lVersion = lVersion;
-            }
-
-            public String getSVersion() {
-                return sVersion;
-            }
-
-            public void setSVersion(String sVersion) {
-                this.sVersion = sVersion;
-            }
-
-            public String getTvModel() {
-                return tvModel;
-            }
-
-            public void setTvModel(String tvModel) {
-                this.tvModel = tvModel;
-            }
-
-            public String getTvVersion() {
-                return tvVersion;
-            }
-
-            public void setTvVersion(String tvVersion) {
-                this.tvVersion = tvVersion;
-            }
-
-            public String getAiProvider() {
-                return aiProvider;
-            }
-
-            public void setAiProvider(String aiProvider) {
-                this.aiProvider = aiProvider;
-            }
-
-            public String getAiVersion() {
-                return aiVersion;
-            }
-
-            public void setAiVersion(String aiVersion) {
-                this.aiVersion = aiVersion;
-            }
-
-            public String getKernelVersion() {
-                return kernelVersion;
-            }
-
-            public void setKernelVersion(String kernelVersion) {
-                this.kernelVersion = kernelVersion;
-            }
-
-            public String getProtocalVersion() {
-                return protocalVersion;
-            }
-
-            public void setProtocalVersion(String protocalVersion) {
-                this.protocalVersion = protocalVersion;
-            }
-
-            public String getUpInfo() {
-                return upInfo;
-            }
-
-            public void setUpInfo(String upInfo) {
-                this.upInfo = upInfo;
-            }
-
-            public static class FwInfoBean {
+            public static class FwBean {
                 /**
-                 * sid : 6
-                 * md5 : f9fb09db6087737d2b16ce82ab8c4039
-                 * url : http://172.22.201.90/group1/M00/00/02/rBbJWl5vKbeAdcRHAjlYWnO5ovE2788.gz
-                 * size : 37312602
+                 * sid : 7
+                 * fwVersion : cm400pro-010-01-2020031616
+                 * fwInfo : {"sid":7,"md5":"ef9aeea77ec79c8b245659ed3e0f97bc","url":"http://172.22.201.90/group1/M00/00/02/rBbJWl50KH2AGTBUAjleHVw29CI4536.gz","size":37314077}
+                 * lVersion : 010
+                 * sVersion : 01
+                 * tvModel :
+                 * tvVersion :
+                 * aiProvider :
+                 * aiVersion :
+                 * kernelVersion :
+                 * protocalVersion :
+                 * upInfo : 测试2
                  */
 
                 private int sid;
-                private String md5;
-                private String url;
-                private int size;
+                private String fwVersion;
+                private DataBean.CameraFwBean.FwBean.FwInfoBean fwInfo;
+                private String lVersion;
+                private String sVersion;
+                private String tvModel;
+                private String tvVersion;
+                private String aiProvider;
+                private String aiVersion;
+                private String kernelVersion;
+                private String protocalVersion;
+                private String upInfo;
 
                 public int getSid() {
                     return sid;
@@ -220,102 +121,212 @@ public class UpgradeInfoBean extends BaseBean {
                     this.sid = sid;
                 }
 
-                public String getMd5() {
-                    return md5;
+                public String getFwVersion() {
+                    return fwVersion;
                 }
 
-                public void setMd5(String md5) {
-                    this.md5 = md5;
+                public void setFwVersion(String fwVersion) {
+                    this.fwVersion = fwVersion;
                 }
 
-                public String getUrl() {
-                    return url;
+                public DataBean.CameraFwBean.FwBean.FwInfoBean getFwInfo() {
+                    return fwInfo;
                 }
 
-                public void setUrl(String url) {
-                    this.url = url;
+                public void setFwInfo(DataBean.CameraFwBean.FwBean.FwInfoBean fwInfo) {
+                    this.fwInfo = fwInfo;
                 }
 
-                public int getSize() {
-                    return size;
+                public String getLVersion() {
+                    return lVersion;
                 }
 
-                public void setSize(int size) {
-                    this.size = size;
+                public void setLVersion(String lVersion) {
+                    this.lVersion = lVersion;
+                }
+
+                public String getSVersion() {
+                    return sVersion;
+                }
+
+                public void setSVersion(String sVersion) {
+                    this.sVersion = sVersion;
+                }
+
+                public String getTvModel() {
+                    return tvModel;
+                }
+
+                public void setTvModel(String tvModel) {
+                    this.tvModel = tvModel;
+                }
+
+                public String getTvVersion() {
+                    return tvVersion;
+                }
+
+                public void setTvVersion(String tvVersion) {
+                    this.tvVersion = tvVersion;
+                }
+
+                public String getAiProvider() {
+                    return aiProvider;
+                }
+
+                public void setAiProvider(String aiProvider) {
+                    this.aiProvider = aiProvider;
+                }
+
+                public String getAiVersion() {
+                    return aiVersion;
+                }
+
+                public void setAiVersion(String aiVersion) {
+                    this.aiVersion = aiVersion;
+                }
+
+                public String getKernelVersion() {
+                    return kernelVersion;
+                }
+
+                public void setKernelVersion(String kernelVersion) {
+                    this.kernelVersion = kernelVersion;
+                }
+
+                public String getProtocalVersion() {
+                    return protocalVersion;
+                }
+
+                public void setProtocalVersion(String protocalVersion) {
+                    this.protocalVersion = protocalVersion;
+                }
+
+                public String getUpInfo() {
+                    return upInfo;
+                }
+
+                public void setUpInfo(String upInfo) {
+                    this.upInfo = upInfo;
+                }
+
+                public static class FwInfoBean {
+                    /**
+                     * sid : 7
+                     * md5 : ef9aeea77ec79c8b245659ed3e0f97bc
+                     * url : http://172.22.201.90/group1/M00/00/02/rBbJWl50KH2AGTBUAjleHVw29CI4536.gz
+                     * size : 37314077
+                     */
+
+                    private int sid;
+                    private String md5;
+                    private String url;
+                    private int size;
+
+                    public int getSid() {
+                        return sid;
+                    }
+
+                    public void setSid(int sid) {
+                        this.sid = sid;
+                    }
+
+                    public String getMd5() {
+                        return md5;
+                    }
+
+                    public void setMd5(String md5) {
+                        this.md5 = md5;
+                    }
+
+                    public String getUrl() {
+                        return url;
+                    }
+
+                    public void setUrl(String url) {
+                        this.url = url;
+                    }
+
+                    public int getSize() {
+                        return size;
+                    }
+
+                    public void setSize(int size) {
+                        this.size = size;
+                    }
                 }
             }
         }
-    }
 
-    public static class MotorFwBean {
-        /**
-         * msg : success
-         * fw : []
-         * total : 0
-         */
+        public static class MotorFwBean {
+            /**
+             * msg : success
+             * fw : []
+             * total : 0
+             */
 
-        private String msg;
-        private int total;
-        private List<?> fw;
+            private String msg;
+            private int total;
+            private List<?> fw;
 
-        public String getMsg() {
-            return msg;
+            public String getMsg() {
+                return msg;
+            }
+
+            public void setMsg(String msg) {
+                this.msg = msg;
+            }
+
+            public int getTotal() {
+                return total;
+            }
+
+            public void setTotal(int total) {
+                this.total = total;
+            }
+
+            public List<?> getFw() {
+                return fw;
+            }
+
+            public void setFw(List<?> fw) {
+                this.fw = fw;
+            }
         }
 
-        public void setMsg(String msg) {
-            this.msg = msg;
-        }
+        public static class ScreenFwBean {
+            /**
+             * msg : success
+             * fw : []
+             * total : 0
+             */
 
-        public int getTotal() {
-            return total;
-        }
+            private String msg;
+            private int total;
+            private List<?> fw;
 
-        public void setTotal(int total) {
-            this.total = total;
-        }
+            public String getMsg() {
+                return msg;
+            }
 
-        public List<?> getFw() {
-            return fw;
-        }
+            public void setMsg(String msg) {
+                this.msg = msg;
+            }
 
-        public void setFw(List<?> fw) {
-            this.fw = fw;
-        }
-    }
+            public int getTotal() {
+                return total;
+            }
 
-    public static class ScreenFwBean {
-        /**
-         * msg : success
-         * fw : []
-         * total : 0
-         */
+            public void setTotal(int total) {
+                this.total = total;
+            }
 
-        private String msg;
-        private int total;
-        private List<?> fw;
+            public List<?> getFw() {
+                return fw;
+            }
 
-        public String getMsg() {
-            return msg;
-        }
-
-        public void setMsg(String msg) {
-            this.msg = msg;
-        }
-
-        public int getTotal() {
-            return total;
-        }
-
-        public void setTotal(int total) {
-            this.total = total;
-        }
-
-        public List<?> getFw() {
-            return fw;
-        }
-
-        public void setFw(List<?> fw) {
-            this.fw = fw;
+            public void setFw(List<?> fw) {
+                this.fw = fw;
+            }
         }
     }
 }
