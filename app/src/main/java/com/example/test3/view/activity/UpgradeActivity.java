@@ -188,6 +188,8 @@ public class UpgradeActivity extends Activity {
                 showNetUpgradeLayout();
                 dismissProgressDialog();
                 showNetFailDialog();
+
+//                downloadPackages(getDownloadInfo());
             }
 
             @Override
@@ -203,6 +205,23 @@ public class UpgradeActivity extends Activity {
                 downloadPackages(downloadInfos);
             }
         });
+    }
+
+    private List<DownloadUpgradePackageManager.DownloadInfo> getDownloadInfo() {
+        List<DownloadUpgradePackageManager.DownloadInfo> downloadInfos = new ArrayList<>();
+
+        DownloadUpgradePackageManager.DownloadInfo info = new DownloadUpgradePackageManager.DownloadInfo();
+        info.setMd5("5ea810395fc14f0ebc628e6e805de3a5");
+        info.setUrl("http://soft.vpser.net/lnmp/lnmp1.6.tar.gz");
+        downloadInfos.add(info);
+
+        DownloadUpgradePackageManager.DownloadInfo info1 = new DownloadUpgradePackageManager.DownloadInfo();
+        info1.setMd5("a58aaeaf0661a251d9f54b29c0d3d1ea");
+        info1.setUrl("http://soft.vpser.net/lnmp/lnmp1.6-full.tar.gz");
+        downloadInfos.add(info1);
+
+
+        return downloadInfos;
     }
 
     private void downloadPackages(List<DownloadUpgradePackageManager.DownloadInfo> downloadInfos) {
