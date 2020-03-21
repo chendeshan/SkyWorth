@@ -12,6 +12,7 @@ public class DownloadUpgradePackageManager {
 
     private DownloadState mCurrentState;
     private List<String> mDownloadSuccessPaths;
+    private int mReTryCount;
 
     public DownloadUpgradePackageManager() {
         mCurrentState = DownloadState.IDLE;
@@ -44,13 +45,21 @@ public class DownloadUpgradePackageManager {
                 public void onSuccess(BaseBean response) {
                     DownloadFileBean downloadFileBean = (DownloadFileBean) response;
                     String filePath = downloadFileBean.getFilePath();
-                    mDownloadSuccessPaths.add(filePath);
 
                     if (checkFileMd5(filePath, info.getMd5())) {
                         downloadInfos.remove(0);
+                        mDownloadSuccessPaths.add(filePath);
+                        download(downloadInfos, destPath, callback);
+                    } else {
+                        if (mReTryCount <= 3) {
+                            mReTryCount++;
+                            download(downloadInfos, destPath, callback);
+                        } else {
+                            callback.onFail(new Exception("download is more then three times."));
+                        }
+
                     }
 
-                    download(downloadInfos, destPath, callback);
                 }
             });
         } else {
