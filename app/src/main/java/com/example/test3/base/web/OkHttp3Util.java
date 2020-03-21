@@ -3,6 +3,7 @@ package com.example.test3.base.web;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,6 +37,7 @@ import okhttp3.Response;
  * @description okHTTP 封装类
  */
 public class OkHttp3Util {
+    private static final String TAG = "OkHttp3Util";
     private OkHttpClient okHttpClient;
     private Handler handler;
     private static OkHttp3Util mInstance;
@@ -586,6 +588,7 @@ public class OkHttp3Util {
             @Override
             public void run() {
                 if (callback != null)
+                    Log.e(TAG, "download error:" + e.getMessage());
                     callback.onError(request, e);
             }
         });
