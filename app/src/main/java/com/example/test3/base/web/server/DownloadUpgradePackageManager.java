@@ -48,6 +48,7 @@ public class DownloadUpgradePackageManager {
                     String filePath = downloadFileBean.getFilePath();
 
                     if (checkFileMd5(filePath, info.getMd5())) {
+                        mReTryCount = 0;
                         downloadInfos.remove(0);
                         mDownloadSuccessPaths.add(filePath);
                         download(downloadInfos, destPath, callback);
