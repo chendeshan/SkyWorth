@@ -24,6 +24,7 @@ public class DownloadUpgradePackageManager {
             return;
         }
 
+        mReTryCount = 0;
         mDownloadSuccessPaths.clear();
         mCurrentState = DownloadState.DOWNLOADING;
 
