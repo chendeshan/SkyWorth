@@ -29,7 +29,7 @@ public class LoadProgressView extends ImageView {
         mDrawable = getDrawable();
 
         if (mDrawable == null) {
-            mDrawable = getResources().getDrawable(R.mipmap.tv_dialog_loading);
+            mDrawable = getResources().getDrawable(R.mipmap.tv_loading);
         }
 
         if (mDrawable == null) {
