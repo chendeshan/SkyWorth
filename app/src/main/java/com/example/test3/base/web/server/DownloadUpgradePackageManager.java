@@ -47,8 +47,7 @@ public class DownloadUpgradePackageManager {
                     mDownloadSuccessPaths.add(filePath);
 
                     if (checkFileMd5(filePath, info.getMd5())) {
-                    downloadInfos.remove(0);
-
+                        downloadInfos.remove(0);
                     }
 
                     download(downloadInfos, destPath, callback);
