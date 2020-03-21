@@ -46,10 +46,10 @@ public class DownloadUpgradePackageManager {
                     String filePath = downloadFileBean.getFilePath();
                     mDownloadSuccessPaths.add(filePath);
 
-//                    if (checkFileMd5(filePath, info.getMd5())) {
+                    if (checkFileMd5(filePath, info.getMd5())) {
                     downloadInfos.remove(0);
 
-//                    }
+                    }
 
                     download(downloadInfos, destPath, callback);
                 }

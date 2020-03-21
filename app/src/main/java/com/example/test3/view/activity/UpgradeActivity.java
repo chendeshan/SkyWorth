@@ -1,6 +1,7 @@
 package com.example.test3.view.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.test3.R;
+import com.example.test3.base.web.OkHttp3Util;
 import com.example.test3.base.web.bean.BaseBean;
 import com.example.test3.base.web.bean.UpgradeInfoBean;
 import com.example.test3.base.web.server.DownloadUpgradePackageManager;
@@ -20,12 +22,15 @@ import com.example.test3.urils.Constant;
 import com.example.test3.view.widget.BaseAlertDialog;
 import com.example.test3.view.widget.ProgressDialog;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import okhttp3.Request;
 
 public class UpgradeActivity extends Activity {
     private static final String TAG = "UpgradeActivity";
@@ -45,6 +50,8 @@ public class UpgradeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrade);
         initView();
+
+//        download();
     }
 
     private void initView() {
@@ -193,23 +200,29 @@ public class UpgradeActivity extends Activity {
                 }
 
                 List<DownloadUpgradePackageManager.DownloadInfo> downloadInfos = getDownloadInfos(fwBeans);
-                mDownloadUpgradePackageManager.downloadPackages(downloadInfos, getPath(), new DownloadUpgradePackageManager.IDownloadCallback() {
-                    @Override
-                    public void onFail(Exception e) {
-                        showNetUpgradeLayout();
-                        dismissProgressDialog();
-                        showNetFailDialog();
-                    }
-
-                    @Override
-                    public void onSuccess(List<String> paths) {
-                        dismissProgressDialog();
-                        showNetUpgradeLayout();
-                        // TODO: 2020/3/20 upgrade
-                    }
-                });
+                downloadPackages(downloadInfos);
             }
         });
+    }
+
+    private void downloadPackages(List<DownloadUpgradePackageManager.DownloadInfo> downloadInfos) {
+
+        mDownloadUpgradePackageManager.downloadPackages(downloadInfos, getPath(), new DownloadUpgradePackageManager.IDownloadCallback() {
+            @Override
+            public void onFail(Exception e) {
+                showNetUpgradeLayout();
+                dismissProgressDialog();
+                showNetFailDialog();
+            }
+
+            @Override
+            public void onSuccess(List<String> paths) {
+                dismissProgressDialog();
+                showNetUpgradeLayout();
+                // TODO: 2020/3/20 upgrade
+            }
+        });
+
     }
 
     private String getPath() {
