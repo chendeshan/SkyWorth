@@ -35,6 +35,7 @@ public class DownloadUpgradePackageManager {
         if (downloadInfos.size() > 0) {
             final DownloadInfo info = downloadInfos.get(0);
             String url = info.getUrl();
+
             ServerApiFactory.getApi().downloadFile(url, destPath, new IServerResultCallback() {
                 @Override
                 public void onFail(Exception e) {
@@ -57,6 +58,7 @@ public class DownloadUpgradePackageManager {
                             mReTryCount++;
                             download(downloadInfos, destPath, callback);
                         } else {
+                            mCurrentState = DownloadState.ERROR;
                             callback.onFail(new Exception("download is more then three times."));
                         }
 
@@ -65,7 +67,8 @@ public class DownloadUpgradePackageManager {
                 }
             });
         } else {
-            callback.onSuccess(mDownloadSuccessPaths);
+            callback.onSuccess(getDownloadSuccessPaths());
+            mDownloadSuccessPaths.clear();
             mCurrentState = DownloadState.IDLE;
         }
     }
@@ -77,14 +80,18 @@ public class DownloadUpgradePackageManager {
     }
 
     public List<String> getDownloadSuccessPaths() {
-        return mDownloadSuccessPaths;
+        List<String> paths = new ArrayList<>();
+
+        paths.addAll(mDownloadSuccessPaths);
+
+        return paths;
     }
 
     private boolean isDownloading() {
         return mCurrentState == DownloadState.DOWNLOADING;
     }
 
-    private boolean isError() {
+    public boolean isError() {
         return mCurrentState == DownloadState.ERROR;
     }
 
@@ -120,6 +127,5 @@ public class DownloadUpgradePackageManager {
             this.url = url;
         }
     }
-
 
 }
