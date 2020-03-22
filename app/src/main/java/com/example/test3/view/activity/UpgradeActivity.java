@@ -19,12 +19,15 @@ import com.example.test3.urils.Constant;
 import com.example.test3.view.widget.BaseAlertDialog;
 import com.example.test3.view.widget.ProgressDialog;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static android.os.Environment.MEDIA_MOUNTED;
 
 public class UpgradeActivity extends BaseActivity {
     private static final String TAG = "UpgradeActivity";
@@ -215,7 +218,14 @@ public class UpgradeActivity extends BaseActivity {
     }
 
     private String getPath() {
-        String basePath = getExternalFilesDir("skyworth").getPath();
+        String basePath;
+
+        if (MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            basePath = getExternalFilesDir("skyworth").getPath();
+        } else {
+            basePath = getFilesDir().getPath() + File.separator + "skyworth";
+        }
+
 //        String path = Environment.getExternalStorageDirectory().getPath() + "/skyworth";
         return basePath;
     }
