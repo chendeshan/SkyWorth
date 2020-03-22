@@ -69,7 +69,6 @@ public class UpgradeActivity extends Activity {
         downloadUpgradeInfo();
     }
 
-
     public void manualUpgradeClick(View view) {
         showManualDialog();
     }
@@ -279,7 +278,7 @@ public class UpgradeActivity extends Activity {
         timer.schedule(timerTask, 5000);
     }
 
-    private Map<String,String> createParam() {
+    private Map<String, String> createParam() {
         Map<String, String> params = new HashMap<>();
 
         params.put("cameraModel", "SWC1");
