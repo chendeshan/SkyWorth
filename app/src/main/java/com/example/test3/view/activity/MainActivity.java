@@ -15,6 +15,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
     }
 
+    /*click*/
     public void settingClick(View view) {
         startSettingActivity();
     }
@@ -23,6 +24,7 @@ public class MainActivity extends Activity {
         startTestDownloadActivity();
     }
 
+    /*startActivity*/
     private void startSettingActivity() {
         Intent intent = new Intent(this, SettingActivity.class);
 

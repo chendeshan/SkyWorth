@@ -50,8 +50,6 @@ public class UpgradeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrade);
         initView();
-
-//        download();
     }
 
     private void initView() {
@@ -181,6 +179,7 @@ public class UpgradeActivity extends Activity {
         timer.schedule(timerTask, 5000);
     }
 
+    /*download*/
     private void downloadUpgradeInfo() {
         ServerApiFactory.getApi().getGradeInfo(Constant.UPGRADE_URL, createParam(), new IServerResultCallback() {
             @Override
@@ -205,23 +204,6 @@ public class UpgradeActivity extends Activity {
                 downloadPackages(downloadInfos);
             }
         });
-    }
-
-    private List<DownloadUpgradePackageManager.DownloadInfo> getDownloadInfo() {
-        List<DownloadUpgradePackageManager.DownloadInfo> downloadInfos = new ArrayList<>();
-
-        DownloadUpgradePackageManager.DownloadInfo info = new DownloadUpgradePackageManager.DownloadInfo();
-        info.setMd5("5ea810395fc14f0ebc628e6e805de3a5");
-        info.setUrl("http://soft.vpser.net/lnmp/lnmp1.6.tar.gz");
-        downloadInfos.add(info);
-
-        DownloadUpgradePackageManager.DownloadInfo info1 = new DownloadUpgradePackageManager.DownloadInfo();
-        info1.setMd5("a58aaeaf0661a251d9f54b29c0d3d1ea");
-        info1.setUrl("http://soft.vpser.net/lnmp/lnmp1.6-full.tar.gz");
-        downloadInfos.add(info1);
-
-
-        return downloadInfos;
     }
 
     private void downloadPackages(List<DownloadUpgradePackageManager.DownloadInfo> downloadInfos) {
@@ -298,6 +280,7 @@ public class UpgradeActivity extends Activity {
         return fw;
     }
 
+    /*fake data*/
     private Map<String,String> createParam() {
         Map<String, String> params = new HashMap<>();
 
@@ -315,6 +298,23 @@ public class UpgradeActivity extends Activity {
         params.put("token", "b888c2205d6cce32af3e39dd158b4f41");
 
         return params;
+    }
+
+    private List<DownloadUpgradePackageManager.DownloadInfo> getDownloadInfo() {
+        List<DownloadUpgradePackageManager.DownloadInfo> downloadInfos = new ArrayList<>();
+
+        DownloadUpgradePackageManager.DownloadInfo info = new DownloadUpgradePackageManager.DownloadInfo();
+        info.setMd5("5ea810395fc14f0ebc628e6e805de3a5");
+        info.setUrl("http://soft.vpser.net/lnmp/lnmp1.6.tar.gz");
+        downloadInfos.add(info);
+
+        DownloadUpgradePackageManager.DownloadInfo info1 = new DownloadUpgradePackageManager.DownloadInfo();
+        info1.setMd5("a58aaeaf0661a251d9f54b29c0d3d1ea");
+        info1.setUrl("http://soft.vpser.net/lnmp/lnmp1.6-full.tar.gz");
+        downloadInfos.add(info1);
+
+
+        return downloadInfos;
     }
 
 }
