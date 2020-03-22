@@ -173,12 +173,6 @@ public class UpgradeActivity extends Activity {
         mProgressDialog.dismiss();
     }
 
-    /*fake*/
-    private void fakeDelay(TimerTask timerTask) {
-        Timer timer = new Timer();
-        timer.schedule(timerTask, 5000);
-    }
-
     /*download*/
     private void downloadUpgradeInfo() {
         ServerApiFactory.getApi().getGradeInfo(Constant.UPGRADE_URL, createParam(), new IServerResultCallback() {
@@ -233,7 +227,6 @@ public class UpgradeActivity extends Activity {
         return path;
     }
 
-
     private List<DownloadUpgradePackageManager.DownloadInfo> getDownloadInfos(List<UpgradeInfoBean.DataBean.CameraFwBean.FwBean> fwBeans) {
         List<DownloadUpgradePackageManager.DownloadInfo> infos = new ArrayList<>();
 
@@ -280,7 +273,12 @@ public class UpgradeActivity extends Activity {
         return fw;
     }
 
-    /*fake data*/
+    /*fake*/
+    private void fakeDelay(TimerTask timerTask) {
+        Timer timer = new Timer();
+        timer.schedule(timerTask, 5000);
+    }
+
     private Map<String,String> createParam() {
         Map<String, String> params = new HashMap<>();
 
@@ -312,7 +310,6 @@ public class UpgradeActivity extends Activity {
         info1.setMd5("a58aaeaf0661a251d9f54b29c0d3d1ea");
         info1.setUrl("http://soft.vpser.net/lnmp/lnmp1.6-full.tar.gz");
         downloadInfos.add(info1);
-
 
         return downloadInfos;
     }
