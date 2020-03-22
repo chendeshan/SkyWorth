@@ -5,8 +5,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.test3.R;
 import com.example.test3.base.web.bean.BaseBean;
 import com.example.test3.base.web.bean.UpgradeInfoBean;
@@ -19,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TestDownloadActivity extends AppCompatActivity {
+public class TestDownloadActivity extends BaseActivity {
 
     private TextView mCurrentProgressView;
 

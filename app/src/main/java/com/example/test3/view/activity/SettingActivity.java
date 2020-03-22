@@ -1,13 +1,12 @@
 package com.example.test3.view.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.test3.R;
 
-public class SettingActivity extends Activity {
+public class SettingActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
