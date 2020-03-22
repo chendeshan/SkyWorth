@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -45,19 +46,23 @@ public class OkHttp3Util {
 
     private OkHttp3Util() {
         //添加cookie
-        okHttpClient = new OkHttpClient.Builder().cookieJar(new CookieJar() {
-            @Override
-            public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-                cookieStore.put(url.host(), cookies);
+        okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .cookieJar(new CookieJar() {
+                    @Override
+                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+                        cookieStore.put(url.host(), cookies);
+                    }
 
-            }
-
-            @Override
-            public List<Cookie> loadForRequest(HttpUrl url) {
-                List<Cookie> cookies = cookieStore.get(url.host());
-                return cookies != null ? cookies : new ArrayList<Cookie>();
-            }
-        }).build();
+                    @Override
+                    public List<Cookie> loadForRequest(HttpUrl url) {
+                        List<Cookie> cookies = cookieStore.get(url.host());
+                        return cookies != null ? cookies : new ArrayList<Cookie>();
+                    }
+                })
+                .build();
 
         handler = new Handler(Looper.getMainLooper());
     }
@@ -589,7 +594,7 @@ public class OkHttp3Util {
             public void run() {
                 if (callback != null)
                     Log.e(TAG, "download error:" + e.getMessage());
-                    callback.onError(request, e);
+                callback.onError(request, e);
             }
         });
     }

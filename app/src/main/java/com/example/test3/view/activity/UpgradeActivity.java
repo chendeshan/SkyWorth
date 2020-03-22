@@ -60,7 +60,8 @@ public class UpgradeActivity extends BaseActivity {
     public void netUpgradeClick(View view) {
         showProgressDialog();
         showNetUpgradingLayout();
-        downloadUpgradeInfo();
+//        downloadUpgradeInfo();
+        downloadPackages(getDownloadInfo());
     }
 
     public void manualUpgradeClick(View view) {
@@ -214,7 +215,7 @@ public class UpgradeActivity extends BaseActivity {
     }
 
     private String getPath() {
-        String basePath = getExternalFilesDir("skyworth").getPath();
+//        String basePath = getExternalFilesDir("skyworth").getPath();
         String path = Environment.getExternalStorageDirectory().getPath() + "/skyworth";
 
         return path;
