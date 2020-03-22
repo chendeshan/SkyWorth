@@ -1,6 +1,5 @@
 package com.example.test3.base.web.mapper;
 
-import com.example.test3.base.web.bean.BaseResponse;
 import com.example.test3.base.web.bean.UpgradeInfoBean;
 import com.google.gson.Gson;
 
