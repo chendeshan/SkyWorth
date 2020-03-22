@@ -14,7 +14,12 @@ public class SettingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        setPermissionGroup(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setPermissionGroup(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE});
     }
 
     public void upgradeClick(View view) {
