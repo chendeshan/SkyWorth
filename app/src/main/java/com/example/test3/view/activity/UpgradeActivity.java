@@ -3,6 +3,7 @@ package com.example.test3.view.activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -179,6 +180,7 @@ public class UpgradeActivity extends BaseActivity {
                 dismissProgressDialog();
                 showNetFailDialog();
 
+                Log.i(TAG, "download GradeInfo fail.");
 //                downloadPackages(getDownloadInfo());
             }
 
@@ -187,6 +189,7 @@ public class UpgradeActivity extends BaseActivity {
                 List<UpgradeInfoBean.DataBean.CameraFwBean.FwBean> fwBeans = getFwBeans(response);
 
                 if (!checkMemoryCache(fwBeans)) {
+                    Log.i(TAG, "not enough memory.do not allow to download package.");
                     Toast.makeText(UpgradeActivity.this, "没有足够的空间", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -198,6 +201,7 @@ public class UpgradeActivity extends BaseActivity {
     }
 
     private void downloadPackages(List<DownloadUpgradePackageManager.DownloadInfo> downloadInfos) {
+        Log.i(TAG, "start to download package.");
 
         mDownloadUpgradePackageManager.downloadPackages(downloadInfos, getPath(), new DownloadUpgradePackageManager.IDownloadCallback() {
             @Override
@@ -205,6 +209,7 @@ public class UpgradeActivity extends BaseActivity {
                 showNetUpgradeLayout();
                 dismissProgressDialog();
                 showNetFailDialog();
+                Log.i(TAG, "download upgradePackage fail.");
             }
 
             @Override
@@ -212,6 +217,7 @@ public class UpgradeActivity extends BaseActivity {
                 dismissProgressDialog();
                 showNetUpgradeLayout();
                 // TODO: 2020/3/20 upgrade
+                Log.i(TAG, "download upgradePackage successfully.");
             }
         });
 

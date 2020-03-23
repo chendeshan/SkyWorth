@@ -106,7 +106,7 @@ public class CommonUtil {
         StatFs  dataFs=new StatFs(basePath);
         long sizes=(long)dataFs.getFreeBlocks()*(long)dataFs.getBlockSize();
 
-        return sizes;// 将获取的内存大小规格化
+        return sizes;
     }
 
     // convert dpi to pixel
