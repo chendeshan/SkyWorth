@@ -1,14 +1,16 @@
 package com.example.test3.urils;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
-import android.text.format.Formatter;
+import android.os.Environment;
+import android.os.StatFs;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
+
+import static android.os.Environment.MEDIA_MOUNTED;
 
 public class CommonUtil {
     public static String MD5(String s) {
@@ -93,13 +95,18 @@ public class CommonUtil {
     }
 
     public static long getAvailMemory(Activity context) {// 获取android当前可用内存大小
+        String basePath;
 
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
-        am.getMemoryInfo(mi);
-        //mi.availMem; 当前系统的可用内存
+        if (MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            basePath = context.getExternalFilesDir("skyworth").getPath();
+        } else {
+            basePath = context.getFilesDir().getPath() + File.separator + "skyworth";
+        }
 
-        return mi.availMem;// 将获取的内存大小规格化
+        StatFs  dataFs=new StatFs(basePath);
+        long sizes=(long)dataFs.getFreeBlocks()*(long)dataFs.getBlockSize();
+
+        return sizes;// 将获取的内存大小规格化
     }
 
     // convert dpi to pixel
